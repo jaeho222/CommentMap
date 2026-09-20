@@ -165,6 +165,10 @@ function buildNodes(claims: Claim[], visibleIds: Set<string>, coreIds: Set<strin
         textAlign: "center" as const,
         padding: "11px 13px",
         whiteSpace: "pre-line" as const,
+        // 한국어 줄바꿈: 글자 단위가 아니라 띄어쓰기(어절) 단위로 끊기
+        wordBreak: "keep-all" as const,
+        // 띄어쓰기 없이 아주 긴 단어(URL 등)만 예외적으로 끊어서 박스 밖으로 안 넘치게
+        overflowWrap: "anywhere" as const,
         color: "#1f2937",
         cursor: "pointer",
       },
@@ -290,7 +294,7 @@ export default function OpinionMapOverlay({
         {/* 헤더 */}
         <div className="flex items-center justify-between border-b border-neutral-100 px-4 py-3 sm:px-6 sm:py-4">
           <div>
-            <h2 className="text-lg font-bold">{data.topic}</h2>
+            <h2 className="break-keep text-lg font-bold">{data.topic}</h2>
             {data.meta && (
               <p className="text-xs text-neutral-500">
                 {data.meta.total_comments?.toLocaleString()} comments ·{" "}
@@ -367,7 +371,7 @@ export default function OpinionMapOverlay({
                 >
                   ← 인사이트로 돌아가기
                 </button>
-                <h3 className="text-base font-bold">{selected.text}</h3>
+                <h3 className="break-keep text-base font-bold">{selected.text}</h3>
                 <p className="mt-1 text-xs text-neutral-500">
                   {selected.count.toLocaleString()}개 댓글 · {selected.stance}
                 </p>
@@ -378,7 +382,7 @@ export default function OpinionMapOverlay({
                   {selected.sample_comments.map((c, i) => (
                     <li
                       key={i}
-                      className="rounded-lg bg-neutral-50 px-3 py-2 text-sm text-neutral-700"
+                      className="break-keep rounded-lg bg-neutral-50 px-3 py-2 text-sm text-neutral-700 [overflow-wrap:anywhere]"
                     >
                       "{c}"
                     </li>
@@ -393,7 +397,7 @@ export default function OpinionMapOverlay({
                   <p className="text-xs font-medium text-neutral-400">
                     🔥 가장 큰 논쟁
                   </p>
-                  <p className="mt-1 text-sm font-semibold">{biggest.text}</p>
+                  <p className="mt-1 break-keep text-sm font-semibold">{biggest.text}</p>
                   <p className="text-xs text-neutral-500">
                     {biggest.count.toLocaleString()}개 댓글
                   </p>
@@ -404,7 +408,7 @@ export default function OpinionMapOverlay({
                     <p className="text-xs font-medium text-neutral-400">
                       👀 숨은 의견
                     </p>
-                    <p className="mt-1 text-sm font-semibold">{hidden.text}</p>
+                    <p className="mt-1 break-keep text-sm font-semibold">{hidden.text}</p>
                     <p className="text-xs text-neutral-500">
                       전체 {Math.round(hidden.share * 100)}% · 인기댓글{" "}
                       {Math.round(hidden.top_share * 100)}%
@@ -412,7 +416,7 @@ export default function OpinionMapOverlay({
                   </div>
                 )}
 
-                <p className="text-xs text-neutral-400">
+                <p className="break-keep text-xs text-neutral-400">
                   진하게 테두리 된 노드가 핵심 주장이에요. 노드를 클릭하면 연결된
                   주장이 펼쳐지고, 대표 댓글도 볼 수 있어요.
                 </p>

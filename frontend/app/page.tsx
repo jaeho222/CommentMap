@@ -93,8 +93,8 @@ export default function Home() {
                 CommentMap
               </h1>
             </div>
-            <p className="mt-1 text-sm text-neutral-500">
-              댓글을 요약하지 않고, 논쟁의 구조를 지도로 보여줍니다.
+            <p className="mt-1 text-sm" style={{ color: "#000" }}>
+              댓글의 여론을 한눈에
             </p>
           </header>
 
