@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "hormuz_deployment",
+    "label": "호르무즈 해협 파병 논의",
+    "video_id": "eRYeVfjiIf8",
+    "video_title": "[자막] \"호르무즈에 우리 군인 보낸다고요?\" 파병 논란에 이재명 대통령이 밝힌 '절대 넘지 않을 선'",
+    "comment_count": 82,
+    "comments_file": "data/issues/hormuz_deployment.json"
+  },
+  {
+    "slug": "samsung_hynix_stock",
+    "label": "삼성전자·SK하이닉스 주가",
+    "video_id": "wOk2qTjgKKw",
+    "video_title": "삼성전자 SK하이닉스 지금이라도 사도 될까? '1000조' 이익은 정말로 모르겠습니다 | 증시각도기 곽상준 #2  [권순장의Bridge]",
+    "comment_count": 298,
+    "comments_file": "data/issues/samsung_hynix_stock.json"
+  },
+  {
+    "slug": "asian_games_operation",
+    "label": "2026 아시안게임 운영 논란",
+    "video_id": "CL4WSoPVh2U",
+    "video_title": "북한 음악 틀더니 \"쏘리\"..하루 걸러 '사고치는' 나고야 [뉴스.zip/MBC뉴스]",
+    "comment_count": 78,
+    "comments_file": "data/issues/asian_games_operation.json"
+  },
+  {
+    "slug": "iphone_18_pro",
+    "label": "아이폰 18 Pro",
+    "video_id": "y3Vm53Yql_o",
+    "video_title": "아이폰 18 프로 미리 써봤습니다. 올해 특히 매력적인 이유",
+    "comment_count": 104,
+    "comments_file": "data/issues/iphone_18_pro.json"
+  },
+  {
+    "slug": "yeosu_island_expo",
+    "label": "여수세계섬박람회 논란",
+    "video_id": "ZvFaV7Far14",
+    "video_title": "[핫라인] '바가지 백반'에 '트럭배'까지···700억 들인 여수 섬박람회 논란",
+    "comment_count": 93,
+    "comments_file": "data/issues/yeosu_island_expo.json"
+  },
+  {
+    "slug": "north_korea_missile",
+    "label": "북한 동해상 발사체",
+    "video_id": "EzC-TEcqgRM",
+    "video_title": "합참 \"북한, 동해상으로 미상 발사체 발사\" [뉴스START] 다시보기 2026년 09월 12일  / YTN",
+    "comment_count": 12,
+    "comments_file": "data/issues/north_korea_missile.json"
+  },
+  {
+    "slug": "president_press_conference",
+    "label": "대통령 대국민 기자회견",
+    "video_id": "WKNpIByKxQA",
+    "video_title": "🔴[LIVE] 이재명 대통령 대국민 기자회견 생중계｜9월 18일 (금)｜YTN 라디오",
+    "comment_count": 87,
+    "comments_file": "data/issues/president_press_conference.json"
+  },
+  {
+    "slug": "real_estate_flattening",
+    "label": "부동산 '평탄화' 발언",
+    "video_id": "wR-b0lwKuXQ",
+    "video_title": "\"강남 하락·외곽 상승은 평탄화 과정\"... 대통령 발언에 부동산 카페 '발칵' [흑백여의도]",
+    "comment_count": 199,
+    "comments_file": "data/issues/real_estate_flattening.json"
+  },
+  {
+    "slug": "newjeans_return",
+    "label": "뉴진스 활동 재개",
+    "video_id": "NNbaTJX_9go",
+    "video_title": "2026 Summer of NewJeans",
+    "comment_count": 273,
+    "comments_file": "data/issues/newjeans_return.json"
+  }
+]
