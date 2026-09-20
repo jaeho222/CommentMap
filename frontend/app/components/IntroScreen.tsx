@@ -195,7 +195,7 @@ export default function IntroScreen({ onDone }: { onDone: () => void }) {
           className="intro-rise mt-5 max-w-md break-keep text-sm leading-relaxed text-white/55 sm:text-base"
           style={{ animationDelay: "0.7s" }}
         >
-          댓글을 요약하지 않고, 논쟁의 구조를 지도로 보여줍니다.
+          AI 기반 댓글 논쟁 구조 시각화 서비스
         </p>
 
         <button
