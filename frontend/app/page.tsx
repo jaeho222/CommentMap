@@ -1,8 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent as ReactMouseEvent } from "react";
 import OpinionMapOverlay from "./components/OpinionMapOverlay";
 import IntroScreen, { hasSeenIntro } from "./components/IntroScreen";
+import {
+  loadHistory,
+  saveToHistory,
+  removeFromHistory,
+  type HistoryEntry,
+} from "./lib/history";
 import type { OpinionMap } from "./types";
 import { analyzeUrl, AnalyzeError } from "./lib/api";
 import { fetchTopic, fetchTopicIndex, TopicLoadError, type TopicMeta } from "./lib/topics";
@@ -22,6 +28,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // ─── 내가 분석한 결과 (이 브라우저에만 저장) ───
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+
   // ─── 첫 화면(인트로) ───
   const [showIntro, setShowIntro] = useState(true);
 
@@ -32,6 +41,7 @@ export default function Home() {
       .catch((e) =>
         setTopicError(e instanceof TopicLoadError ? e.message : "토픽 목록 오류")
       );
+    setHistory(loadHistory());
     // 같은 탭에서 이미 봤으면(새로고침 등) 인트로 건너뛰기
     if (hasSeenIntro()) setShowIntro(false);
   }, []);
@@ -63,6 +73,8 @@ export default function Home() {
     try {
       const result = await analyzeUrl(url.trim(), { topic: topic.trim() });
       setLiveResult(result);
+      saveToHistory(url.trim(), topic.trim(), result); // 카드로 저장 (같은 영상이면 교체)
+      setHistory(loadHistory());
     } catch (e) {
       setError(e instanceof AnalyzeError ? e.message : "알 수 없는 오류가 발생했습니다.");
     } finally {
@@ -76,6 +88,20 @@ export default function Home() {
     const result = await analyzeUrl(inputUrl, { topic: inputTopic });
     setOpenKey(null); // 데모 토픽 오버레이였다면 닫고
     setLiveResult(result); // 라이브 결과 오버레이로 교체
+    saveToHistory(inputUrl, inputTopic, result);
+    setHistory(loadHistory());
+  }
+
+  // 저장된 카드 클릭: 서버 재호출 없이 저장해둔 JSON을 그대로 맵에 전달
+  function openSaved(entry: HistoryEntry) {
+    setLiveResult(entry.data);
+  }
+
+  function deleteSaved(e: ReactMouseEvent, id: string) {
+    e.stopPropagation(); // 카드 클릭(맵 열기)으로 번지지 않게
+    e.preventDefault();
+    removeFromHistory(id);
+    setHistory(loadHistory());
   }
 
   return (
@@ -139,6 +165,57 @@ export default function Home() {
                   </span>
                 </div>
               </button>
+            ))}
+
+            {/* 내가 분석한 결과 카드 (데모 토픽 뒤에 붙음) */}
+            {history.map((h) => (
+              <div
+                key={h.id}
+                onClick={() => openSaved(h)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") openSaved(h);
+                }}
+                className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl text-left transition hover:scale-[1.02]"
+              >
+                {h.thumbnail ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={h.thumbnail}
+                    alt={h.topic}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-neutral-700 to-neutral-900" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
+
+                {/* 삭제 버튼 */}
+                <button
+                  onClick={(e) => deleteSaved(e, h.id)}
+                  title="이 분석 삭제"
+                  className="absolute right-2 top-2 z-20 rounded-full bg-black/50 px-2 py-0.5 text-xs text-white/70 opacity-0 transition hover:bg-black/70 hover:text-white group-hover:opacity-100"
+                >
+                  ✕
+                </button>
+
+                <div className="relative z-10 flex h-full flex-col justify-between p-3 sm:p-6">
+                  <span className="text-[10px] font-mono uppercase tracking-wide text-white/80 sm:text-xs">
+                    내 분석
+                  </span>
+                  <span className="break-keep text-sm font-semibold leading-snug text-white sm:text-xl">
+                    {h.topic}
+                    <span className="mt-0.5 block text-[10px] font-normal text-white/60 sm:text-xs">
+                      {new Date(h.analyzedAt).toLocaleDateString("ko-KR", {
+                        month: "numeric",
+                        day: "numeric",
+                      })}{" "}
+                      · {h.data.claims.length} claims
+                    </span>
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
         </main>
