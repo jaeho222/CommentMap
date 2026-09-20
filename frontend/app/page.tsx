@@ -1,77 +1,68 @@
 "use client";
 
-import { useState } from "react";
-import sampleData from "@/data/sample.opinionmap.json";
+import { useEffect, useState } from "react";
 import OpinionMapOverlay from "./components/OpinionMapOverlay";
 import type { OpinionMap } from "./types";
 import { analyzeUrl, AnalyzeError } from "./lib/api";
-
-const REAL_TOPICS = [
-  {
-    key: "hormuz",
-    label: "호르무즈 해협 파병",
-    tag: "안보/외교",
-    image: "/tiles/hormuz_deployment.jpg",
-  },
-  {
-    key: "samsung_hynix",
-    label: "삼전·하이닉스 주식 현황",
-    tag: "경제",
-    image: "/tiles/samsung_hynix_stock.jpg",
-  },
-  {
-    key: "asian_games",
-    label: "아시안게임 운영 논란",
-    tag: "스포츠",
-    image: "/tiles/asian_games_operation.jpg",
-  },
-  {
-    key: "iphone18",
-    label: "아이폰 18 Pro",
-    tag: "테크",
-    image: "/tiles/iphone_18_pro.jpeg",
-  },
-  {
-    key: "yeosu_expo",
-    label: "여수 섬 박람회",
-    tag: "지역/사회",
-    image: "/tiles/yeosu_island_expo.jpg",
-  },
-  {
-    key: "missile",
-    label: "북한 동해상 미사일 발사",
-    tag: "안보",
-    image: "/tiles/north_korea_missile.jpg",
-  },
-  {
-    key: "press_conference",
-    label: "대통령 대국민 기자회견",
-    tag: "정치",
-    image: "/tiles/president_press_conference.jpg",
-  },
-  {
-    key: "real_estate",
-    label: "오세훈 부동산 평탄화 비판",
-    tag: "정치/부동산",
-    image: "/tiles/real_estate_flattening.jpg",
-  },
-  {
-    key: "newjeans",
-    label: "뉴진스 복귀",
-    tag: "연예",
-    image: "/tiles/newjeans_return.jpg",
-  },
-];
-
-const data = sampleData as Record<string, OpinionMap>;
+import { fetchTopic, fetchTopicIndex, TopicLoadError, type TopicMeta } from "./lib/topics";
 
 export default function Home() {
+  // ─── 데모 토픽 (public/data 에서 불러옴) ───
+  const [topics, setTopics] = useState<TopicMeta[]>([]);
+  const [topicCache, setTopicCache] = useState<Record<string, OpinionMap>>({});
   const [openKey, setOpenKey] = useState<string | null>(null);
+  const [loadingKey, setLoadingKey] = useState<string | null>(null);
+  const [topicError, setTopicError] = useState<string | null>(null);
+
+  // ─── 라이브 분석 (URL 입력) ───
   const [url, setUrl] = useState("");
   const [topic, setTopic] = useState("");
   const [liveResult, setLiveResult] = useState<OpinionMap | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // 처음 한 번: 토픽 목록 불러오기
+  useEffect(() => {
+    fetchTopicIndex()
+      .then(setTopics)
+      .catch((e) =>
+        setTopicError(e instanceof TopicLoadError ? e.message : "토픽 목록 오류")
+      );
+  }, []);
+
+  // 타일 클릭: 해당 토픽 데이터만 불러오기 (한 번 불러온 건 캐시)
+  async function openTopic(key: string) {
+    if (loadingKey) return;
+    if (topicCache[key]) {
+      setOpenKey(key);
+      return;
+    }
+    setLoadingKey(key);
+    setTopicError(null);
+    try {
+      const data = await fetchTopic(key);
+      setTopicCache((prev) => ({ ...prev, [key]: data }));
+      setOpenKey(key);
+    } catch (e) {
+      setTopicError(e instanceof TopicLoadError ? e.message : "토픽을 불러오지 못했습니다.");
+    } finally {
+      setLoadingKey(null);
+    }
+  }
+
+  async function runAnalyze() {
+    if (!url.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await analyzeUrl(url.trim(), { topic: topic.trim() });
+      setLiveResult(result);
+    } catch (e) {
+      setError(e instanceof AnalyzeError ? e.message : "알 수 없는 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
@@ -99,32 +90,36 @@ export default function Home() {
             </p>
           </header>
 
-          <div className="grid grid-cols-3 gap-4 md:grid-cols-3">
-            {REAL_TOPICS.map((t) => (
+          {topicError && (
+            <p className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+              {topicError}
+            </p>
+          )}
+
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+            {topics.map((t) => (
               <button
                 key={t.key}
-                onClick={() => data[t.key] && setOpenKey(t.key)}
-                disabled={!data[t.key]}
-                className="group relative aspect-square overflow-hidden rounded-2xl text-left transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
+                onClick={() => openTopic(t.key)}
+                disabled={loadingKey !== null}
+                className="group relative aspect-square overflow-hidden rounded-2xl text-left transition hover:scale-[1.02] disabled:cursor-wait"
               >
-                {/* 배경 사진 */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={t.image}
                   alt={t.label}
                   className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-105"
                 />
-                {/* 가독성용 어두운 그라데이션 오버레이 */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
-                {/* 텍스트 */}
                 <div className="relative z-10 flex h-full flex-col justify-between p-6">
                   <span className="text-xs font-mono uppercase tracking-wide text-white/80">
                     {t.tag}
                   </span>
                   <span className="text-xl font-semibold text-white">
                     {t.label}
-                    {!data[t.key] && (
+                    {loadingKey === t.key && (
                       <span className="ml-2 text-xs font-normal text-white/70">
-                        (준비중)
+                        불러오는 중…
                       </span>
                     )}
                   </span>
@@ -157,27 +152,9 @@ export default function Home() {
                   className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-400"
                 />
                 <button
-                  onClick={async () => {
-                    if (!url.trim()) return;
-                    setLoading(true);
-                    setError(null);
-                    try {
-                      const result = await analyzeUrl(url.trim(), {
-                        topic: topic.trim(),
-                      });
-                      setLiveResult(result);
-                    } catch (e) {
-                      setError(
-                        e instanceof AnalyzeError
-                          ? e.message
-                          : "알 수 없는 오류가 발생했습니다."
-                      );
-                    } finally {
-                      setLoading(false);
-                    }
-                  }}
+                  onClick={runAnalyze}
                   disabled={loading || !url.trim()}
-                  className="rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {loading ? "분석 중... (1~2분 소요)" : "Analyze"}
                 </button>
@@ -191,15 +168,17 @@ export default function Home() {
             <div>
               <h2 className="mb-3 text-sm font-semibold">데모 토픽</h2>
               <ul className="flex flex-col gap-1">
-                {REAL_TOPICS.map((t) => (
+                {topics.map((t) => (
                   <li key={t.key}>
                     <button
-                      onClick={() => data[t.key] && setOpenKey(t.key)}
-                      disabled={!data[t.key]}
-                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
+                      onClick={() => openTopic(t.key)}
+                      disabled={loadingKey !== null}
+                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition hover:bg-neutral-100 disabled:cursor-wait"
                     >
-                      <span>{data[t.key]?.topic ?? t.label}</span>
-                      <span className="text-neutral-400">→</span>
+                      <span>{t.label}</span>
+                      <span className="text-neutral-400">
+                        {loadingKey === t.key ? "…" : "→"}
+                      </span>
                     </button>
                   </li>
                 ))}
@@ -228,8 +207,8 @@ export default function Home() {
       </div>
 
       {/* ─── 오버레이 ─── */}
-      {openKey && (
-        <OpinionMapOverlay data={data[openKey]} onClose={() => setOpenKey(null)} />
+      {openKey && topicCache[openKey] && (
+        <OpinionMapOverlay data={topicCache[openKey]} onClose={() => setOpenKey(null)} />
       )}
       {liveResult && (
         <OpinionMapOverlay data={liveResult} onClose={() => setLiveResult(null)} />
