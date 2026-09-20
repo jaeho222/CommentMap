@@ -10,6 +10,7 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import type { OpinionMap, Claim, Relation, RelationType } from "../types";
+import { AnalyzeError } from "../lib/api";
 
 // stance 별 노드 색 (밝은 배경 모던 팔레트)
 const STANCE_STYLE: Record<string, { bg: string; border: string }> = {
@@ -172,12 +173,34 @@ function buildNodes(claims: Claim[], visibleIds: Set<string>, coreIds: Set<strin
 export default function OpinionMapOverlay({
   data,
   onClose,
+  onAnalyze,
 }: {
   data: OpinionMap;
   onClose: () => void;
+  /** URL(+ 선택적 주제)을 받아 실제 분석을 돌리는 함수. 성공하면 알아서 새 결과 화면으로 전환됨. */
+  onAnalyze?: (url: string, topic: string) => Promise<void>;
 }) {
   const [selected, setSelected] = useState<Claim | null>(null);
   const [innerUrl, setInnerUrl] = useState("");
+  const [innerTopic, setInnerTopic] = useState("");
+  const [innerLoading, setInnerLoading] = useState(false);
+  const [innerError, setInnerError] = useState<string | null>(null);
+
+  async function handleInnerAnalyze() {
+    if (!innerUrl.trim() || !onAnalyze) return;
+    setInnerLoading(true);
+    setInnerError(null);
+    try {
+      await onAnalyze(innerUrl.trim(), innerTopic.trim());
+      // 성공하면 부모가 새 데이터로 오버레이를 다시 그려주므로 여기선 따로 할 일 없음
+    } catch (e) {
+      setInnerError(
+        e instanceof AnalyzeError ? e.message : "알 수 없는 오류가 발생했습니다."
+      );
+    } finally {
+      setInnerLoading(false);
+    }
+  }
 
   const claimById = useMemo(() => {
     const m: Record<string, Claim> = {};
@@ -398,14 +421,22 @@ export default function OpinionMapOverlay({
                     placeholder="YouTube URL"
                     className="mb-2 w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-400"
                   />
+                  <input
+                    value={innerTopic}
+                    onChange={(e) => setInnerTopic(e.target.value)}
+                    placeholder="주제 (선택)"
+                    className="mb-2 w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-400"
+                  />
                   <button
-                    onClick={() =>
-                      alert("백엔드 연결 후 실시간 분석됩니다")
-                    }
-                    className="w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-700"
+                    onClick={handleInnerAnalyze}
+                    disabled={innerLoading || !innerUrl.trim()}
+                    className="w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    Analyze
+                    {innerLoading ? "분석 중... (1~2분 소요)" : "Analyze"}
                   </button>
+                  {innerError && (
+                    <p className="mt-2 text-xs text-red-600">{innerError}</p>
+                  )}
                 </div>
               </div>
             )}

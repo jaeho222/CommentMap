@@ -64,6 +64,14 @@ export default function Home() {
     }
   }
 
+  // 그래프 오버레이 안(다른 영상 분석하기)에서 호출되는 함수.
+  // 성공하면 지금 열려있는 오버레이를 새 분석 결과로 교체한다.
+  async function analyzeFromOverlay(inputUrl: string, inputTopic: string) {
+    const result = await analyzeUrl(inputUrl, { topic: inputTopic });
+    setOpenKey(null); // 데모 토픽 오버레이였다면 닫고
+    setLiveResult(result); // 라이브 결과 오버레이로 교체
+  }
+
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-6 py-8 lg:flex-row">
@@ -208,10 +216,18 @@ export default function Home() {
 
       {/* ─── 오버레이 ─── */}
       {openKey && topicCache[openKey] && (
-        <OpinionMapOverlay data={topicCache[openKey]} onClose={() => setOpenKey(null)} />
+        <OpinionMapOverlay
+          data={topicCache[openKey]}
+          onClose={() => setOpenKey(null)}
+          onAnalyze={analyzeFromOverlay}
+        />
       )}
       {liveResult && (
-        <OpinionMapOverlay data={liveResult} onClose={() => setLiveResult(null)} />
+        <OpinionMapOverlay
+          data={liveResult}
+          onClose={() => setLiveResult(null)}
+          onAnalyze={analyzeFromOverlay}
+        />
       )}
     </div>
   );
