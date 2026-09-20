@@ -4,6 +4,7 @@ import { useState } from "react";
 import sampleData from "@/data/sample.opinionmap.json";
 import OpinionMapOverlay from "./components/OpinionMapOverlay";
 import type { OpinionMap } from "./types";
+import { analyzeUrl, AnalyzeError } from "./lib/api";
 
 // 실제 작동하는 3개 토픽 (sample JSON 의 key 와 매칭)
 const REAL_TOPICS = [
@@ -45,6 +46,10 @@ const data = sampleData as Record<string, OpinionMap>;
 export default function Home() {
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [url, setUrl] = useState("");
+  const [topic, setTopic] = useState("");
+  const [liveResult, setLiveResult] = useState<OpinionMap | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
@@ -124,12 +129,32 @@ export default function Home() {
                   placeholder="https://youtube.com/watch?v=..."
                   className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-400"
                 />
+                <input
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  placeholder="주제 (예: 아이폰 18 가격 논쟁) — 선택"
+                  className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-400"
+                />
                 <button
-                  onClick={() => alert("분석 기능은 백엔드 연결 후 작동합니다 (지금은 아래 토픽 데모를 눌러보세요)")}
-                  className="rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700"
-                >
-                  Analyze
-                </button>
+                    onClick={async () => {
+                      if (!url.trim()) return;
+                      setLoading(true);
+                      setError(null);
+                      try {
+                        const result = await analyzeUrl(url.trim(), { topic: topic.trim() });
+                        setLiveResult(result);
+                      } catch (e) {
+                        setError(e instanceof AnalyzeError ? e.message : "알 수 없는 오류가 발생했습니다.");
+                      } finally {
+                        setLoading(false);
+                      }
+                    }}
+                    disabled={loading || !url.trim()}
+                    className="rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    {loading ? "분석 중... (1~2분 소요)" : "Analyze"}
+                  </button>
+                  {error && <p className="text-xs text-red-600">{error}</p>}
               </div>
             </div>
 
@@ -179,6 +204,12 @@ export default function Home() {
         <OpinionMapOverlay
           data={data[openKey]}
           onClose={() => setOpenKey(null)}
+        />
+      )}
+      {liveResult && (
+        <OpinionMapOverlay
+          data={liveResult}
+          onClose={() => setLiveResult(null)}
         />
       )}
     </div>
