@@ -95,17 +95,19 @@ def find_similar_claims(
     각 claim마다 의미적으로 가까운
     다른 claim들을 찾는다.
 
-    E5는 병합을 결정하지 않고
+    전체 N x N similarity matrix를 만들지 않고
+    claim 하나씩 similarity를 계산해
+    메모리 사용량을 줄인다.
+
+    임베딩 모델은 병합을 결정하지 않고
     Claude에게 전달할 후보만 찾는다.
     """
 
     if not claims:
         return []
 
-    similarity_matrix = (
-        calculate_similarity_matrix(
-            embeddings
-        )
+    embeddings = np.asarray(
+        embeddings
     )
 
     results = []
@@ -113,9 +115,10 @@ def find_similar_claims(
     for index, claim in enumerate(
         claims
     ):
-        similarities = similarity_matrix[
-            index
-        ]
+        similarities = np.matmul(
+            embeddings,
+            embeddings[index]
+        )
 
         ranked_indices = np.argsort(
             similarities
@@ -133,7 +136,9 @@ def find_similar_claims(
             ]
 
             candidates.append({
-                "index": int(candidate_index),
+                "index": int(
+                    candidate_index
+                ),
                 "text": candidate["text"],
                 "comment_id": candidate[
                     "comment_id"
