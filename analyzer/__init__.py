@@ -39,12 +39,13 @@ def analyze(
     CommentMap 전체 분석 파이프라인.
 
     댓글에서 개별 claim을 추출한 뒤,
-    동일한 의견을 병합하고 stance와
-    claim 사이의 관계를 분석한다.
+    동일한 의견을 병합한다.
 
-    마지막으로 전체 댓글 분포와
-    좋아요 상위 댓글 분포를 비교하여
-    hidden opinion을 찾는다.
+    이후 topic relevance와 stance를 판정하고,
+    관련 있는 claim만 OpinionMap에 포함한다.
+
+    마지막으로 claim 사이의 관계와
+    hidden opinion을 분석한다.
 
     topic:
         collector 또는 웹페이지에서 얻은
@@ -92,7 +93,7 @@ def analyze(
         claim_results
     )
 
-    # 3. 최종 OpinionMap claim 생성
+    # 3. 최종 OpinionMap claim 후보 생성
     claims = build_final_claims(
         groups,
         processed_comments
@@ -116,23 +117,109 @@ def analyze(
         )
     ]
 
-    # 4. 주제에 대한 stance 판정
-    claims = classify_claim_stances(
-        claims,
-        topic
+    # 4. topic relevance와 stance 판정
+    classified_claims = (
+        classify_claim_stances(
+            claims,
+            topic
+        )
     )
 
-    # 5. claim 사이 관계 생성
+    # 5. topic과 관련 있는 claim과
+    # 대응 group만 함께 유지한다.
+    filtered_pairs = [
+        (claim, group)
+        for claim, group in zip(
+            classified_claims,
+            valid_groups
+        )
+        if claim.get(
+            "relevant",
+            False
+        )
+    ]
+
+    claims = []
+    filtered_groups = []
+
+    for index, (
+        claim,
+        group
+    ) in enumerate(
+        filtered_pairs,
+        start=1
+    ):
+        final_claim = dict(
+            claim
+        )
+
+        # relevance는 내부 판정용이므로
+        # 최종 OpinionMap에는 포함하지 않는다.
+        final_claim.pop(
+            "relevant",
+            None
+        )
+
+        # 필터링 후 claim ID를 다시 정리한다.
+        final_claim["id"] = (
+            f"c{index}"
+        )
+
+        claims.append(
+            final_claim
+        )
+
+        filtered_groups.append(
+            group
+        )
+
+    # 관련 claim이 하나도 없으면
+    # 빈 OpinionMap을 반환한다.
+    if not claims:
+        return {
+            "topic": topic,
+            "meta": {
+                "total_comments": len(
+                    comments
+                ),
+                "analyzed_comments": len(
+                    processed_comments
+                ),
+                "topic_count": 0,
+                "claim_count": 0
+            },
+            "claims": [],
+            "relations": [],
+            "hidden_opinions": []
+        }
+
+    # 관련 claim이 등장한 고유 댓글 수 계산
+    topic_comment_ids = set()
+
+    for group in filtered_groups:
+        for comment_id in group.get(
+            "comment_ids",
+            []
+        ):
+            topic_comment_ids.add(
+                comment_id
+            )
+
+    topic_count = len(
+        topic_comment_ids
+    )
+
+    # 6. 관련 claim 사이 관계 생성
     relations = build_relations(
         claims
     )
 
-    # 6. 전체 댓글 분포와 인기댓글 분포를
+    # 7. 전체 댓글 분포와 인기댓글 분포를
     # 비교해 hidden opinion 탐색
     hidden_opinions = (
         find_hidden_opinions(
             claims,
-            valid_groups,
+            filtered_groups,
             processed_comments
         )
     )
@@ -146,9 +233,7 @@ def analyze(
             "analyzed_comments": len(
                 processed_comments
             ),
-            "topic_count": len(
-                valid_groups
-            ),
+            "topic_count": topic_count,
             "claim_count": len(
                 claims
             )

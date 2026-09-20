@@ -18,10 +18,22 @@ For each pair you receive:
 - Claim B
 - source context for Claim B
 
-The source context is the original comment or comments from which
-the claim was extracted. Use it only to understand the intended
-meaning and argumentative role of the claims.
+The source context is provided only to resolve references or omitted
+information needed to understand what each claim means.
 
+The relationship itself must be justified by the propositions
+expressed in Claim A and Claim B.
+
+Do NOT use an additional argument, opinion, reason, or conclusion
+found only in the source context to create a relationship between
+the displayed claims.
+
+A useful test is:
+If a reader saw only Claim A and Claim B after their references were
+resolved, would the support, attack, or related relationship still
+be understandable?
+
+If not, choose "none".
 Possible decisions:
 
 - "a_supports_b":
@@ -139,6 +151,34 @@ Additional rules:
 
 16. Return JSON only.
     Do not include Markdown or explanations.
+    
+17. Source context may clarify what a claim refers to, but it must
+    not supply a missing premise that creates the edge.
+    
+18. Do not infer an attack relationship merely because two claims
+    appear to have different stances toward the topic.
+
+19. Do not infer a support relationship merely because two claims
+    appear to have the same stance toward the topic.
+
+20. The relationship must exist between the propositions expressed
+    by Claim A and Claim B themselves.
+
+21. For "a_attacks_b" or "b_attacks_a", one claim must directly
+    contradict, reject, challenge, or undermine a proposition,
+    reason, assumption, or conclusion expressed by the other claim.
+
+22. For "a_supports_b" or "b_supports_a", one claim must provide
+    a reason, evidence, justification, consequence, or premise that
+    makes the other claim more convincing.
+
+23. If two claims merely discuss the same topic, share a general
+    position, or express different preferences without a direct
+    argumentative connection, do not label them support or attack.
+
+24. When deciding between a relationship and "none", prefer "none"
+    unless the argumentative connection is clear from the displayed
+    claims themselves.
 
 Output format:
 
@@ -213,23 +253,33 @@ def build_prompt(claim_pairs):
 
 
 def clean_json_response(response_text):
-    """
-    JSON 응답이 Markdown 코드 블록으로
-    감싸져 있으면 제거한다.
-    """
-
     text = response_text.strip()
 
-    code_block_match = re.fullmatch(
+    code_block_match = re.search(
         r"```(?:json)?\s*(.*?)\s*```",
         text,
         flags=re.DOTALL | re.IGNORECASE
     )
 
     if code_block_match:
-        text = code_block_match.group(1).strip()
+        return code_block_match.group(1).strip()
 
-    return text
+    start = text.find("{")
+
+    if start == -1:
+        return text
+
+    decoder = json.JSONDecoder()
+
+    try:
+        _, end = decoder.raw_decode(
+            text[start:]
+        )
+
+        return text[start:start + end].strip()
+
+    except json.JSONDecodeError:
+        return text
 
 
 def parse_response(response_text):

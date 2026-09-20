@@ -302,7 +302,7 @@ def extract_claims_batch(
     response = ask_claude(
         prompt=prompt,
         system_prompt=SYSTEM_PROMPT,
-        max_tokens=2048
+        max_tokens=4096
     )
 
     try:

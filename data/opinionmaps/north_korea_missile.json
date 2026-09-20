@@ -1,0 +1,22 @@
+{
+  "topic": "북한 동해상 발사체",
+  "meta": {
+    "total_comments": 12,
+    "analyzed_comments": 12,
+    "topic_count": 1,
+    "claim_count": 1
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "text": "북한은 미사일 시험해서 고도화 시킨다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "북한은 미사일 시험해서 고도화 시키는데 리재명 붱쯴은 하는게 뭐노? 시진핑 김정은에게 벙어리 흉내"
+      ]
+    }
+  ],
+  "relations": [],
+  "hidden_opinions": []
+}

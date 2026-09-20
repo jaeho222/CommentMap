@@ -6,51 +6,126 @@ from .claude_client import ask_claude, MODEL_NAME
 
 
 SYSTEM_PROMPT = """
-You are a stance classification system for CommentMap.
+You are a topic relevance and stance classification system
+for CommentMap.
 
-For each claim, classify its stance toward the supplied topic.
+For each claim, determine:
 
-Allowed labels:
+1. Whether the claim is relevant to the supplied topic.
+2. If relevant, its stance toward the topic.
+
+Allowed stance labels:
 - positive
 - negative
 - neutral
 
-Definitions:
+RELEVANCE
+
+A claim is relevant when understanding the claim helps explain
+the discussion, reasoning, disagreement, consequences, background,
+or positions surrounding the supplied topic.
+
+Relevant claims may include:
+- direct support or opposition
+- reasons for supporting or opposing the topic
+- consequences or risks of the topic
+- factual or contextual claims used to discuss the topic
+- predictions that are used as reasoning about the topic
+- conditions or alternatives directly connected to the topic
+
+A claim is irrelevant when it is merely present in the same comment
+but does not materially contribute to understanding the discussion
+about the supplied topic.
+
+Examples of irrelevant content include:
+- unrelated opinions about people or organizations
+- unrelated political or social commentary
+- insults or praise with no meaningful connection to the topic
+- unrelated events mentioned in the same comment
+
+Do not require the exact topic words to appear in the claim.
+Judge relevance by meaning and context.
+
+STANCE
+
+The stance describes the claim's position toward the supplied topic.
+It does NOT describe whether the sentence itself sounds emotionally
+positive or negative.
 
 positive:
-The claim expresses approval, support, praise, satisfaction,
-preference, or a favorable evaluation toward the topic or
-an aspect of the topic.
+The claim clearly supports, favors, recommends, defends, or argues
+in favor of the topic or a position directly supporting it.
 
 negative:
-The claim expresses disapproval, criticism, rejection,
-dissatisfaction, concern, or an unfavorable evaluation toward
-the topic or an aspect of the topic.
+The claim clearly opposes, rejects, discourages, warns against, or
+argues against the topic or a position directly opposing it.
 
 neutral:
-The claim is descriptive, ambiguous, mixed, informational,
-or does not clearly express a positive or negative stance.
+The claim is relevant to the topic but does not establish a clear
+position for or against it.
 
-Rules:
+This includes:
+- factual or descriptive background
+- relevant predictions
+- relevant contextual information
+- ambiguous or mixed positions
 
-1. Judge the meaning of the claim, not individual keywords.
+RULES
 
-2. Use the topic only as context for understanding what the
-   claim refers to.
+1. Judge relevance before stance.
 
-3. Source comments may be used to resolve ambiguity.
+2. Always judge stance relative to the supplied topic.
 
-4. Do not translate or rewrite the claim.
+3. Do not classify emotional tone as stance.
 
-5. Do not invent sentiment or intention that is not expressed.
+4. A positive-sounding sentence is not automatically positive.
+   A negative-sounding sentence is not automatically negative.
 
-6. If both positive and negative attitudes are meaningfully
-   present and neither clearly dominates, choose neutral.
+5. Source comments are provided only to resolve references or omitted
+   information needed to understand what the claim itself means.
 
-7. If the stance is uncertain, choose neutral.
+6. Relevance must be justified by the proposition expressed in the
+   displayed claim itself after references are resolved.
 
-8. Return JSON only.
-   Do not include Markdown or explanations.
+7. Do NOT make a claim relevant merely because its source comment also
+   contains another claim that is relevant to the topic.
+
+8. Do NOT transfer the stance or argumentative role of other sentences
+   in the source comment to the displayed claim.
+
+9. A useful relevance test is:
+   If a reader saw this claim by itself, after any references were
+   resolved, would it still help explain the discussion, reasoning,
+   disagreement, consequences, background, or positions surrounding
+   the supplied topic?
+
+   If not, set:
+   "relevant": false
+   "stance": "neutral"
+
+10. Source context may clarify what words such as "it", "they",
+    "this decision", or similar references mean, but it must not supply
+    a separate argument that makes the claim relevant.
+
+11. Do not infer political, ideological, personal, or other attitudes
+   that are not supported by the claim and its immediate context.
+
+12. Do not translate or rewrite the claim.
+
+13. If a claim is irrelevant, set:
+   "relevant": false
+   "stance": "neutral"
+
+14. If a relevant claim has no clear positive or negative position,
+    use neutral.
+
+15. If uncertain about stance, choose neutral.
+
+16. If uncertain about relevance, prefer false unless there is a
+    meaningful connection to the topic.
+
+17. Return JSON only.
+    Do not include Markdown or explanations.
 
 Output format:
 
@@ -58,6 +133,7 @@ Output format:
   "results": [
     {
       "claim_id": "c1",
+      "relevant": true,
       "stance": "positive"
     }
   ]
@@ -91,12 +167,9 @@ def build_claim_data(claims):
     ]
 
 
-def build_prompt(
-    claims,
-    topic
-):
+def build_prompt(claims, topic):
     """
-    topic과 최종 claim들을 Claude에 전달한다.
+    topic과 claim batch를 Claude에 전달한다.
     """
 
     data = {
@@ -107,7 +180,8 @@ def build_prompt(
     }
 
     return (
-        "Classify the stance of every claim.\n\n"
+        "Determine topic relevance and topic-relative "
+        "stance for every claim.\n\n"
         + json.dumps(
             data,
             ensure_ascii=False,
@@ -117,6 +191,11 @@ def build_prompt(
 
 
 def clean_json_response(response_text):
+    """
+    Claude 응답이 Markdown JSON 코드 블록으로
+    감싸져 있으면 제거한다.
+    """
+
     text = response_text.strip()
 
     match = re.fullmatch(
@@ -132,6 +211,11 @@ def clean_json_response(response_text):
 
 
 def parse_response(response_text):
+    """
+    Claude 응답을 JSON으로 변환하고
+    relevance와 stance 값을 검증한다.
+    """
+
     cleaned = clean_json_response(
         response_text
     )
@@ -140,12 +224,19 @@ def parse_response(response_text):
         data = json.loads(
             cleaned
         )
+
     except json.JSONDecodeError as error:
         raise ValueError(
             "Claude stance 응답을 JSON으로 "
             "변환하지 못했습니다.\n"
             f"응답 내용:\n{response_text}"
         ) from error
+
+    if not isinstance(data, dict):
+        raise ValueError(
+            "Claude stance 응답의 "
+            "최상위 구조가 객체가 아닙니다."
+        )
 
     results = data.get(
         "results"
@@ -160,45 +251,60 @@ def parse_response(response_text):
     validated = []
 
     for result in results:
-        if not isinstance(result, dict):
+        if not isinstance(
+            result,
+            dict
+        ):
             continue
 
         claim_id = result.get(
             "claim_id"
         )
+
+        relevant = result.get(
+            "relevant"
+        )
+
         stance = result.get(
             "stance"
         )
 
-        if not isinstance(claim_id, str):
+        if not isinstance(
+            claim_id,
+            str
+        ):
+            continue
+
+        if not isinstance(
+            relevant,
+            bool
+        ):
             continue
 
         if stance not in VALID_STANCES:
             continue
 
+        if not relevant:
+            stance = "neutral"
+
         validated.append({
             "claim_id": claim_id,
+            "relevant": relevant,
             "stance": stance
         })
 
     return validated
 
 
-def classify_claim_stances(
+def make_cache_data(
     claims,
-    topic=""
+    topic
 ):
     """
-    최종 claim들의 stance를 한 번의 batch로 판정한다.
-
-    판정에 실패하거나 응답에서 누락된 claim은
-    안전하게 neutral을 유지한다.
+    한 batch에 대한 캐시 키 데이터를 만든다.
     """
 
-    if not claims:
-        return claims
-
-    cache_data = {
+    return {
         "model": MODEL_NAME,
         "system_prompt": SYSTEM_PROMPT,
         "topic": topic,
@@ -207,51 +313,130 @@ def classify_claim_stances(
         )
     }
 
-    cached = load_cache(
-        "stance_classifier",
-        cache_data
-    )
 
-    if cached is not None:
-        print(
-            "Stance classification: 캐시 사용 "
-            "(API 호출 없음)"
+def classify_claim_stances(
+    claims,
+    topic="",
+    batch_size=20
+):
+    """
+    최종 claim들의 topic relevance와
+    topic-relative stance를 batch 단위로 판정한다.
+
+    batch별 결과를 각각 캐시하므로
+    중간에 실패하더라도 성공한 batch는
+    다음 실행에서 다시 API를 호출하지 않는다.
+
+    응답에서 누락된 claim은 보수적으로
+    relevant=False, stance=neutral로 처리한다.
+    """
+
+    if not claims:
+        return []
+
+    all_results = []
+
+    total_batches = (
+        len(claims)
+        + batch_size
+        - 1
+    ) // batch_size
+
+    for batch_index, start in enumerate(
+        range(
+            0,
+            len(claims),
+            batch_size
+        ),
+        start=1
+    ):
+        batch = claims[
+            start:start + batch_size
+        ]
+
+        cache_data = make_cache_data(
+            batch,
+            topic
         )
-        results = cached
 
-    else:
+        cached = load_cache(
+            "stance_classifier",
+            cache_data
+        )
+
+        if cached is not None:
+            print(
+                f"Stance classification: "
+                f"batch {batch_index}/"
+                f"{total_batches} 캐시 사용 "
+                f"(API 호출 없음)"
+            )
+
+            all_results.extend(
+                cached
+            )
+
+            continue
+
         print(
-            "Stance classification: Claude API 호출"
+            f"Stance classification: "
+            f"batch {batch_index}/"
+            f"{total_batches} Claude API 호출"
         )
 
         response = ask_claude(
             prompt=build_prompt(
-                claims,
+                batch,
                 topic
             ),
             system_prompt=SYSTEM_PROMPT,
-            max_tokens=1024
+            max_tokens=1536
         )
 
-        results = parse_response(
+        batch_results = parse_response(
             response
         )
 
         save_cache(
             "stance_classifier",
             cache_data,
-            results
+            batch_results
         )
 
-    stance_lookup = {
-        result["claim_id"]: result["stance"]
-        for result in results
+        all_results.extend(
+            batch_results
+        )
+
+    result_lookup = {
+        result["claim_id"]: result
+        for result in all_results
     }
 
+    classified_claims = []
+
     for claim in claims:
-        claim["stance"] = stance_lookup.get(
+        result = result_lookup.get(
             claim["id"],
-            "neutral"
+            {
+                "relevant": False,
+                "stance": "neutral"
+            }
         )
 
-    return claims
+        classified_claim = dict(
+            claim
+        )
+
+        classified_claim["relevant"] = (
+            result["relevant"]
+        )
+
+        classified_claim["stance"] = (
+            result["stance"]
+        )
+
+        classified_claims.append(
+            classified_claim
+        )
+
+    return classified_claims
