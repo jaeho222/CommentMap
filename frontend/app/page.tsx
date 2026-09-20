@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import OpinionMapOverlay from "./components/OpinionMapOverlay";
+import IntroScreen, { hasSeenIntro } from "./components/IntroScreen";
 import type { OpinionMap } from "./types";
 import { analyzeUrl, AnalyzeError } from "./lib/api";
 import { fetchTopic, fetchTopicIndex, TopicLoadError, type TopicMeta } from "./lib/topics";
@@ -21,13 +22,18 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 처음 한 번: 토픽 목록 불러오기
+  // ─── 첫 화면(인트로) ───
+  const [showIntro, setShowIntro] = useState(true);
+
+  // 처음 한 번: 토픽 목록 + 저장된 분석 기록 불러오기
   useEffect(() => {
     fetchTopicIndex()
       .then(setTopics)
       .catch((e) =>
         setTopicError(e instanceof TopicLoadError ? e.message : "토픽 목록 오류")
       );
+    // 같은 탭에서 이미 봤으면(새로고침 등) 인트로 건너뛰기
+    if (hasSeenIntro()) setShowIntro(false);
   }, []);
 
   // 타일 클릭: 해당 토픽 데이터만 불러오기 (한 번 불러온 건 캐시)
@@ -93,8 +99,8 @@ export default function Home() {
                 CommentMap
               </h1>
             </div>
-            <p className="mt-1 text-sm" style={{ color: "#000" }}>
-              댓글의 여론을 한눈에
+            <p className="mt-1 text-sm text-neutral-500">
+              댓글을 요약하지 않고, 논쟁의 구조를 지도로 보여줍니다.
             </p>
           </header>
 
@@ -170,6 +176,7 @@ export default function Home() {
               </div>
             </div>
 
+
             <hr className="my-5 border-neutral-100" />
 
             {/* 토픽 리스트 */}
@@ -213,6 +220,9 @@ export default function Home() {
           </div>
         </aside>
       </div>
+
+      {/* ─── 첫 화면(인트로) ─── */}
+      {showIntro && <IntroScreen onDone={() => setShowIntro(false)} />}
 
       {/* ─── 오버레이 ─── */}
       {openKey && topicCache[openKey] && (
