@@ -7,7 +7,10 @@ from jsonschema import Draft7Validator, FormatChecker
 
 from collector import collect
 from collector.clean import clean_comments
-from collector.youtube import extract_video_id
+from collector.youtube import (
+    extract_video_id,
+    get_video_title,
+)
 
 
 SCHEMA_PATH = Path("contracts/comments.schema.json")
@@ -129,3 +132,14 @@ def test_real_youtube_collect() -> None:
 
     assert isinstance(comments, list)
     validate_against_schema(comments)
+
+
+def test_get_video_title() -> None:
+    video_id = extract_video_id(
+        os.environ["TEST_YOUTUBE_URL"]
+    )
+
+    title = get_video_title(video_id)
+
+    assert isinstance(title, str)
+    assert len(title.strip()) > 0
