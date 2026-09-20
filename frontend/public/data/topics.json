@@ -1,0 +1,56 @@
+[
+  {
+    "key": "hormuz",
+    "label": "호르무즈 해협 파병",
+    "tag": "안보/외교",
+    "image": "/tiles/hormuz_deployment.jpg"
+  },
+  {
+    "key": "samsung_hynix",
+    "label": "삼전·하이닉스 주식 현황",
+    "tag": "경제",
+    "image": "/tiles/samsung_hynix_stock.jpg"
+  },
+  {
+    "key": "asian_games",
+    "label": "아시안게임 운영 논란",
+    "tag": "스포츠",
+    "image": "/tiles/asian_games_operation.jpg"
+  },
+  {
+    "key": "iphone18",
+    "label": "아이폰 18 Pro",
+    "tag": "테크",
+    "image": "/tiles/iphone_18_pro.jpeg"
+  },
+  {
+    "key": "yeosu_expo",
+    "label": "여수 섬 박람회",
+    "tag": "지역/사회",
+    "image": "/tiles/yeosu_island_expo.jpg"
+  },
+  {
+    "key": "missile",
+    "label": "북한 동해상 미사일 발사",
+    "tag": "안보",
+    "image": "/tiles/north_korea_missile.jpg"
+  },
+  {
+    "key": "press_conference",
+    "label": "대통령 대국민 기자회견",
+    "tag": "정치",
+    "image": "/tiles/president_press_conference.jpg"
+  },
+  {
+    "key": "real_estate",
+    "label": "오세훈 부동산 평탄화 비판",
+    "tag": "정치/부동산",
+    "image": "/tiles/real_estate_flattening.jpg"
+  },
+  {
+    "key": "newjeans",
+    "label": "뉴진스 복귀",
+    "tag": "연예",
+    "image": "/tiles/newjeans_return.jpg"
+  }
+]

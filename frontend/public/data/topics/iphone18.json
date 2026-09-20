@@ -1,0 +1,1164 @@
+{
+  "topic": "아이폰 18 Pro",
+  "meta": {
+    "total_comments": 104,
+    "analyzed_comments": 104,
+    "topic_count": 59,
+    "claim_count": 85
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "text": "듀오는 사실이다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "듀오 사실 거잖아요ᄏᄏᄏᄏ"
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "그래픽 점수 ai 점수를 무시하고 벤치마크 점수로 아이폰을 사라고 했다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "그래픽 점수 ai 점수 무시하고 벤치마크 점수로 아이폰 사라 했잖아요 벤치마크 점수 가르쳐 주세요 왜 요번만 벤치마크 점수가 필요 없을까요 ᄏᄏ"
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "카드지갑 색은 도저히 안 된다",
+      "count": 2,
+      "stance": "negative",
+      "sample_comments": [
+        "케이스 색상 조헙애서 제한적이러 생각해 버건디는 패스하고 글레이셔 사전 예약 했네요 탹월항 선택인더 같아 매우 만족합니다 😊",
+        "카드지갑 색은 도저히 안되겠지만..가을에 버건디 간지긴할듯"
+      ]
+    },
+    {
+      "id": "c4",
+      "text": "프맥 글레이셔로 갔다",
+      "count": 2,
+      "stance": "neutral",
+      "sample_comments": [
+        "케이스 색상 조헙애서 제한적이러 생각해 버건디는 패스하고 글레이셔 사전 예약 했네요 탹월항 선택인더 같아 매우 만족합니다 😊",
+        "빠르다 캬ᅣ블랙은 좋아보였는데 지문이...프맥 글레이셔로 갔어용ᄒ"
+      ]
+    },
+    {
+      "id": "c5",
+      "text": "글레이셔 선택에 매우 만족한다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "케이스 색상 조헙애서 제한적이러 생각해 버건디는 패스하고 글레이셔 사전 예약 했네요 탹월항 선택인더 같아 매우 만족합니다 😊"
+      ]
+    },
+    {
+      "id": "c6",
+      "text": "맛나게 생겼다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "나고 맛나게생겼다"
+      ]
+    },
+    {
+      "id": "c7",
+      "text": "뒷태는 아인슈타인 머리뚜껑접한것같아",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "뒷태는 아인슈타인 머리뚜껑접한것같아 숨겨도별수없네, 듀오는 가격넘비싸고 냥쓰던것계속 패쓰"
+      ]
+    },
+    {
+      "id": "c8",
+      "text": "듀오는 가격넘비싸",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "뒷태는 아인슈타인 머리뚜껑접한것같아 숨겨도별수없네, 듀오는 가격넘비싸고 냥쓰던것계속 패쓰"
+      ]
+    },
+    {
+      "id": "c9",
+      "text": "일세대 항상스킵",
+      "count": 2,
+      "stance": "negative",
+      "sample_comments": [
+        "뒷태는 아인슈타인 머리뚜껑접한것같아 숨겨도별수없네, 듀오는 가격넘비싸고 냥쓰던것계속 패쓰",
+        "일세대 항상스킵"
+      ]
+    },
+    {
+      "id": "c10",
+      "text": "듀오를 살 것 같음",
+      "count": 2,
+      "stance": "positive",
+      "sample_comments": [
+        "솔직히 듀오밖에 안보임",
+        "살텐데... 듀오 ...."
+      ]
+    },
+    {
+      "id": "c11",
+      "text": "버건디 색상을 가지고 싶습니다",
+      "count": 2,
+      "stance": "positive",
+      "sample_comments": [
+        "샤오미 폰에 버건디 색상이었으면 ᄏᄏ 블라인드 테스트 하면 다들 개욕할꺼면서 ᄏᄏᄏᄏ 사람들 웃김 글레이즈가 이번엔 원픽 .",
+        "오우 벌 건디 가꼬싶다😊"
+      ]
+    },
+    {
+      "id": "c12",
+      "text": "글레이즈가 이번엔 원픽",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "샤오미 폰에 버건디 색상이었으면 ᄏᄏ 블라인드 테스트 하면 다들 개욕할꺼면서 ᄏᄏᄏᄏ 사람들 웃김 글레이즈가 이번엔 원픽 ."
+      ]
+    },
+    {
+      "id": "c13",
+      "text": "아이폰18프로 샀음",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "아이폰18프로 샀음 ,,,,,"
+      ]
+    },
+    {
+      "id": "c14",
+      "text": "버건디 컬러 소개에 찰떡같은 착장",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "버건디 컬러 소개에 찰떡같은 착장이자나🫒☺️"
+      ]
+    },
+    {
+      "id": "c15",
+      "text": "지금까지 아이폰은 카메라 수동모드가 없었다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "아니 그럼 지금까지 아이폰은 카메라 수동모드가 없었다는거임? 화밸 조절이나 셔터스피드 조절 등의 기능이 없었다는 거임? 엘지는 10년전에도 있던 기능인데?"
+      ]
+    },
+    {
+      "id": "c16",
+      "text": "엘지는 10년전에도 있던 기능",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "아니 그럼 지금까지 아이폰은 카메라 수동모드가 없었다는거임? 화밸 조절이나 셔터스피드 조절 등의 기능이 없었다는 거임? 엘지는 10년전에도 있던 기능인데?"
+      ]
+    },
+    {
+      "id": "c17",
+      "text": "13프로 출시 하자마자 구입해서 사용중입니다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "13프로 출시 하자마자 구입해서 사용중인데 이번에 넘어가려고 보고있습니다. 그냥 프로를 살지 맥스를 살지 고민중인데 추천좀 해주십셔.. 화면크기. 배터리.. 흠..?"
+      ]
+    },
+    {
+      "id": "c18",
+      "text": "이번에 넘어가려고 보고있습니다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "13프로 출시 하자마자 구입해서 사용중인데 이번에 넘어가려고 보고있습니다. 그냥 프로를 살지 맥스를 살지 고민중인데 추천좀 해주십셔.. 화면크기. 배터리.. 흠..?"
+      ]
+    },
+    {
+      "id": "c19",
+      "text": "프로를 살지 맥스를 살지 고민중입니다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "13프로 출시 하자마자 구입해서 사용중인데 이번에 넘어가려고 보고있습니다. 그냥 프로를 살지 맥스를 살지 고민중인데 추천좀 해주십셔.. 화면크기. 배터리.. 흠..?"
+      ]
+    },
+    {
+      "id": "c20",
+      "text": "프로맥스 블랙으로 선택했습니다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "프로맥스 블랙으로 선택했습니다. 기대중!! 😊근데 기다리던 애플티비는 언제 나올까요 아주 목빠지게 기다리고 있습니다ᅲᅲ"
+      ]
+    },
+    {
+      "id": "c21",
+      "text": "듀오를 갖고 싶다",
+      "count": 2,
+      "stance": "positive",
+      "sample_comments": [
+        "갖고싶다 딸한테 사달라고 해야지ᄋ",
+        "프맥이랑 듀오랑 얼마 차이안나네...듀오 넘 갖고싶다 ᅲ"
+      ]
+    },
+    {
+      "id": "c22",
+      "text": "버건디 색이 이쁘다",
+      "count": 2,
+      "stance": "positive",
+      "sample_comments": [
+        "버건디 너무 예쁜데요 올 가을 버건디가 유행인가 봐 US 오픈 테니스복도 버건디가 많던데 특히 아디다스.",
+        "버건디 진짜ᄏᄏᄏ 체리 같은데요 그런데 진짜 이쁘네요 🍒"
+      ]
+    },
+    {
+      "id": "c23",
+      "text": "올 가을 버건디가 유행인 것 같습니다",
+      "count": 2,
+      "stance": "neutral",
+      "sample_comments": [
+        "버건디 너무 예쁜데요 올 가을 버건디가 유행인가 봐 US 오픈 테니스복도 버건디가 많던데 특히 아디다스.",
+        "카드지갑 색은 도저히 안되겠지만..가을에 버건디 간지긴할듯"
+      ]
+    },
+    {
+      "id": "c24",
+      "text": "사진쪽을 중요하게 여긴다면 렌즈부터 가변조리개까지 들어간 아이폰 프로라인이 맞습니다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "사진쪽을 중요하게 여긴다면 렌즈부터 가변조리개까지 들어간 아이폰 프로라인 게다가 밖에서 저 듀오를 펼칠 일이 거의 없을 거 같다? 그럼 그 목적이 뭐든 펼칠 여지가 없다면 아이폰 프로라인으로 가는 게 맞는 거 같음. 폴드형 폰은 잘 활용할 사람이 쓰는 게 맞는 듯 ᄒ"
+      ]
+    },
+    {
+      "id": "c25",
+      "text": "펼칠 여지가 없다면 아이폰 프로라인으로 가는 게 맞습니다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "사진쪽을 중요하게 여긴다면 렌즈부터 가변조리개까지 들어간 아이폰 프로라인 게다가 밖에서 저 듀오를 펼칠 일이 거의 없을 거 같다? 그럼 그 목적이 뭐든 펼칠 여지가 없다면 아이폰 프로라인으로 가는 게 맞는 거 같음. 폴드형 폰은 잘 활용할 사람이 쓰는 게 맞는 듯 ᄒ"
+      ]
+    },
+    {
+      "id": "c26",
+      "text": "듀오랑 무게차이 5g",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "듀오랑 무게차이 5g..."
+      ]
+    },
+    {
+      "id": "c27",
+      "text": "완성도 좋아진 17s같은 느낌",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "완성도 좋아진 17s같은 느낌인데... 가격도 오르고..흠."
+      ]
+    },
+    {
+      "id": "c28",
+      "text": "가격도 올랐음",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "완성도 좋아진 17s같은 느낌인데... 가격도 오르고..흠."
+      ]
+    },
+    {
+      "id": "c29",
+      "text": "듀오건 프로건 간에 200~300만원 넘는 폰을 사느니 아이패드나 맥북을 산다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "듀오건 프로건 간에 200~300만원 넘는 폰 사느니 아이패드를 사든가 맥북을 산다"
+      ]
+    },
+    {
+      "id": "c30",
+      "text": "평생 사지 말 것",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "ᄏᄏᄏᄏ 평생사지마"
+      ]
+    },
+    {
+      "id": "c31",
+      "text": "아이폰 18프로 후기를 잘 봤다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "음.. 영어 발음이 꽤 준수하신 편이네요.. did u study in the US? 아이폰 18프로 후기 잘 봤습니다. 그리고 구독했습니다."
+      ]
+    },
+    {
+      "id": "c32",
+      "text": "프맥이랑 듀오 사이에 가격 차이가 많이 나지 않는다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "프맥이랑 듀오랑 얼마 차이안나네...듀오 넘 갖고싶다 ᅲ"
+      ]
+    },
+    {
+      "id": "c33",
+      "text": "듀오는 그 가격에 무게에 페이스 아이디가 없다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "듀오는 그 가격에 무게에 페이스 아이디가 없어?!! 18프맥도 무게 ᅳᅮ 15프맥 계속 못바꿈 ᅳᅮ"
+      ]
+    },
+    {
+      "id": "c34",
+      "text": "18프맥도 무게가 있다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "듀오는 그 가격에 무게에 페이스 아이디가 없어?!! 18프맥도 무게 ᅳᅮ 15프맥 계속 못바꿈 ᅳᅮ"
+      ]
+    },
+    {
+      "id": "c35",
+      "text": "아이폰 듀오는 앱 2개 동시에 여는 것이 가로방향만 된다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "아이폰 듀오....앱 2개 동시에 여는거 가로방향만 됨....두개로 멀티하다가 세로로 돌리면 앱 둘중 하나는 그냥 꺼짐....혁신은 개풀뜯어먹는 소리임"
+      ]
+    },
+    {
+      "id": "c36",
+      "text": "혁신은 개풀뜯어먹는 소리다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "아이폰 듀오....앱 2개 동시에 여는거 가로방향만 됨....두개로 멀티하다가 세로로 돌리면 앱 둘중 하나는 그냥 꺼짐....혁신은 개풀뜯어먹는 소리임"
+      ]
+    },
+    {
+      "id": "c37",
+      "text": "시리가 찐따라서 애초에 칩이 빡세게 일한 적이 없다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "시리가 찐따라서 애초에 칩이 빡세게 일한적이 없..."
+      ]
+    },
+    {
+      "id": "c38",
+      "text": "빠르다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "빠르다 캬ᅣ블랙은 좋아보였는데 지문이...프맥 글레이셔로 갔어용ᄒ"
+      ]
+    },
+    {
+      "id": "c39",
+      "text": "블랙은 좋아 보인다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "빠르다 캬ᅣ블랙은 좋아보였는데 지문이...프맥 글레이셔로 갔어용ᄒ"
+      ]
+    },
+    {
+      "id": "c40",
+      "text": "블랙은 지문이 문제다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "빠르다 캬ᅣ블랙은 좋아보였는데 지문이...프맥 글레이셔로 갔어용ᄒ"
+      ]
+    },
+    {
+      "id": "c41",
+      "text": "256GB 512GB는 TLC이고 1TB 2TB는 QLC로 출신된다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "256GB 512GB 는 TCL 1TB 2TB는 QLC로 출신된게 맞나요??"
+      ]
+    },
+    {
+      "id": "c42",
+      "text": "해외 아이폰18프로 선호도 색상 순위 여러곳에서 조사 결과 대부분 정배가 1위",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "해외 아이폰18프로 선호도 색상 순위 여러곳에서 조사했는데 대부분 정배가 1위 버건디or블랙, 2위 블랙or버건디 3위 글레이셔, 4위 실버 올해도 실버가 젤 비인기"
+      ]
+    },
+    {
+      "id": "c43",
+      "text": "2위는 버건디 또는 블랙",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "해외 아이폰18프로 선호도 색상 순위 여러곳에서 조사했는데 대부분 정배가 1위 버건디or블랙, 2위 블랙or버건디 3위 글레이셔, 4위 실버 올해도 실버가 젤 비인기"
+      ]
+    },
+    {
+      "id": "c44",
+      "text": "3위는 글레이셔",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "해외 아이폰18프로 선호도 색상 순위 여러곳에서 조사했는데 대부분 정배가 1위 버건디or블랙, 2위 블랙or버건디 3위 글레이셔, 4위 실버 올해도 실버가 젤 비인기"
+      ]
+    },
+    {
+      "id": "c45",
+      "text": "4위는 실버",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "해외 아이폰18프로 선호도 색상 순위 여러곳에서 조사했는데 대부분 정배가 1위 버건디or블랙, 2위 블랙or버건디 3위 글레이셔, 4위 실버 올해도 실버가 젤 비인기"
+      ]
+    },
+    {
+      "id": "c46",
+      "text": "올해도 실버가 젤 비인기",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "해외 아이폰18프로 선호도 색상 순위 여러곳에서 조사했는데 대부분 정배가 1위 버건디or블랙, 2위 블랙or버건디 3위 글레이셔, 4위 실버 올해도 실버가 젤 비인기"
+      ]
+    },
+    {
+      "id": "c47",
+      "text": "올해 너무나 매력적인 가격",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "올해 너무나 매력적인 가격.. 내년도 잘부탁해 내 15야!"
+      ]
+    },
+    {
+      "id": "c48",
+      "text": "유튜버분들이 스피커 위치랑 스피커에 대해 알려주지 않는다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "아니 근데 유튜버분들 다들 스피커 위치랑 스피커에 대해선 알려주시질 않는건지 원..."
+      ]
+    },
+    {
+      "id": "c49",
+      "text": "ios27부터 시리가 강력해진다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "ios27부터 시리(한글은 10월달부터 현재 베타 버전 나옴)가 강력해져서 그에 따른 아이폰 18프로 활용이 강력해집니다"
+      ]
+    },
+    {
+      "id": "c50",
+      "text": "한글 시리는 10월달부터 현재 베타 버전이 나왔다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "ios27부터 시리(한글은 10월달부터 현재 베타 버전 나옴)가 강력해져서 그에 따른 아이폰 18프로 활용이 강력해집니다"
+      ]
+    },
+    {
+      "id": "c51",
+      "text": "실버가 너무 밋밋한 은색이다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "실버 생각했는데 또 너무 밋밋한 은색이라 그냥 버건디 가버릴까 고민되네"
+      ]
+    },
+    {
+      "id": "c52",
+      "text": "Duo를 그냥 pro camera만 탑재했어도 정말 괜찮았을 것이다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "Duo 를 그냥 pro camera만 탑재 했어도 정말 괜찬았을 듯"
+      ]
+    },
+    {
+      "id": "c53",
+      "text": "트레이드인 하는 사람은 개손해입니다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "트레이드인 하는사람은 개손해 비추입니다 한가지라도 잡히면 가격 바닥칩니다"
+      ]
+    },
+    {
+      "id": "c54",
+      "text": "한가지라도 잡히면 가격이 바닥칩니다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "트레이드인 하는사람은 개손해 비추입니다 한가지라도 잡히면 가격 바닥칩니다"
+      ]
+    },
+    {
+      "id": "c55",
+      "text": "버건디 색상으로 샀다",
+      "count": 2,
+      "stance": "neutral",
+      "sample_comments": [
+        "저는 일단 버건디 프로 주문 하긴 했는데 아직 고민이네요.",
+        "누나 저도 버건디로 샀어요 저는 이번에 처음으로 프맥으로 샀는데 너무 기대되요 😊"
+      ]
+    },
+    {
+      "id": "c56",
+      "text": "아직 고민 중입니다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "저는 일단 버건디 프로 주문 하긴 했는데 아직 고민이네요."
+      ]
+    },
+    {
+      "id": "c57",
+      "text": "폴드8은 신나게 썼는데 아이폰 듀오는 안 산다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "폴드8은 신나게 쓰셨는데 아이폰 듀오는 안 산다는 건 돈이 모자라서인가요.. 😁"
+      ]
+    },
+    {
+      "id": "c58",
+      "text": "리뷰들을 보면 잘 나온 것 같습니다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "내년 20주년 아이폰을 기다려야할지 이번에 바꿔야할지 너무너무고민되네 리뷰들 보면 잘나온거같기도하고..."
+      ]
+    },
+    {
+      "id": "c59",
+      "text": "듀오를 사고 싶은데 고민 중입니다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "영어를 왤케 잘하시는? 듀오 사고 싶은데... 고민입니다ᅲᅲ"
+      ]
+    },
+    {
+      "id": "c60",
+      "text": "트레이드인을 그렇게 중요하게 생각하면 가격을 올려줘야 합니다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "12:55 트레이드인을 그렇게 중요하게 생각하면 가격 좀 올려주세요.... ᅲᅲ"
+      ]
+    },
+    {
+      "id": "c61",
+      "text": "버건디 색상이 잘 나왔습니다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "지난번 오렌지 색상이후에 버건디 색상이 잘나온거같아여"
+      ]
+    },
+    {
+      "id": "c62",
+      "text": "조리개를 달았다고 해서 배경 흐림이 더 있을 수는 절대로 없다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "7:25 조리개 달았다고 배경 흐림이 더 있을수는 절대로 없죠!! 기존의 카메라가 이미 최대개방이었으니... 낮은 심도 즉 흔히 말하는 아웃포커싱은 기존과 동일하고 다만 조리개가 생김으로써 심도 깊은 사진이 가능해 진다는건데 쌀알 만한 촬상소자를 가진 카메라에 그게 무슨 의미가 있을까 싶네요"
+      ]
+    },
+    {
+      "id": "c63",
+      "text": "기존 카메라가 이미 최대개방이었다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "7:25 조리개 달았다고 배경 흐림이 더 있을수는 절대로 없죠!! 기존의 카메라가 이미 최대개방이었으니... 낮은 심도 즉 흔히 말하는 아웃포커싱은 기존과 동일하고 다만 조리개가 생김으로써 심도 깊은 사진이 가능해 진다는건데 쌀알 만한 촬상소자를 가진 카메라에 그게 무슨 의미가 있을까 싶네요"
+      ]
+    },
+    {
+      "id": "c64",
+      "text": "조리개가 생김으로써 심도 깊은 사진이 가능해진다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "7:25 조리개 달았다고 배경 흐림이 더 있을수는 절대로 없죠!! 기존의 카메라가 이미 최대개방이었으니... 낮은 심도 즉 흔히 말하는 아웃포커싱은 기존과 동일하고 다만 조리개가 생김으로써 심도 깊은 사진이 가능해 진다는건데 쌀알 만한 촬상소자를 가진 카메라에 그게 무슨 의미가 있을까 싶네요"
+      ]
+    },
+    {
+      "id": "c65",
+      "text": "쌀알 만한 촬상소자를 가진 카메라에서 심도 깊은 사진이 의미가 있는지 의문이다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "7:25 조리개 달았다고 배경 흐림이 더 있을수는 절대로 없죠!! 기존의 카메라가 이미 최대개방이었으니... 낮은 심도 즉 흔히 말하는 아웃포커싱은 기존과 동일하고 다만 조리개가 생김으로써 심도 깊은 사진이 가능해 진다는건데 쌀알 만한 촬상소자를 가진 카메라에 그게 무슨 의미가 있을까 싶네요"
+      ]
+    },
+    {
+      "id": "c66",
+      "text": "버건디 색이 체리 같다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "버건디 진짜ᄏᄏᄏ 체리 같은데요 그런데 진짜 이쁘네요 🍒"
+      ]
+    },
+    {
+      "id": "c67",
+      "text": "17프로와 케이스 호환가능한지 묻는다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "17프로랑 케이스 호환가능할까요..?"
+      ]
+    },
+    {
+      "id": "c68",
+      "text": "나이가 먹으니 이제 갤럭시로 가야겠다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "난 나이 먹으니 이젠 갤럭시 가야겠음. 더이상 혁신이고 뭐고 필요없네. 노안도 믄제. 판대기 큰게 쵝오."
+      ]
+    },
+    {
+      "id": "c69",
+      "text": "더 이상 혁신이 필요하지 않다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "난 나이 먹으니 이젠 갤럭시 가야겠음. 더이상 혁신이고 뭐고 필요없네. 노안도 믄제. 판대기 큰게 쵝오."
+      ]
+    },
+    {
+      "id": "c70",
+      "text": "18프로랑 듀오 중에 선택하기가 어렵다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "고나고 누나 영어 발음 너무 좋아서 치인다 크 영어 저도 잘하고싶네요 ᄏᄏᄏ 18 프로랑 듀오 중에 고민하게 만드는게 너무 어려워여 진짜 이러다 부사장님처럼 각각 모델 사게 되는게 아닌지~~"
+      ]
+    },
+    {
+      "id": "c71",
+      "text": "이번에 처음으로 프맥으로 샀다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "누나 저도 버건디로 샀어요 저는 이번에 처음으로 프맥으로 샀는데 너무 기대되요 😊"
+      ]
+    },
+    {
+      "id": "c72",
+      "text": "너무 기대된다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "누나 저도 버건디로 샀어요 저는 이번에 처음으로 프맥으로 샀는데 너무 기대되요 😊"
+      ]
+    },
+    {
+      "id": "c73",
+      "text": "색상이 너무 붉다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "너무 뻘건디?"
+      ]
+    },
+    {
+      "id": "c74",
+      "text": "결국 블랙 색상을 선택할 것 같다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "결국엔 어차피 블랙 색상 선택할 듯 합니다"
+      ]
+    },
+    {
+      "id": "c75",
+      "text": "로제가 들어서 저 정도다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "로제가 들어서 저 정도지 개인적으로는 늙크크 색상... (버건디, 카민 레드, 무슨 레드 등등 다 써봤지만 평가는 그냥 물에 젖은 단풍색이었음. )"
+      ]
+    },
+    {
+      "id": "c76",
+      "text": "개인적으로는 늙크크 색상이다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "로제가 들어서 저 정도지 개인적으로는 늙크크 색상... (버건디, 카민 레드, 무슨 레드 등등 다 써봤지만 평가는 그냥 물에 젖은 단풍색이었음. )"
+      ]
+    },
+    {
+      "id": "c77",
+      "text": "버건디, 카민 레드, 무슨 레드 등등 다 써봤지만 평가는 그냥 물에 젖은 단풍색이다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "로제가 들어서 저 정도지 개인적으로는 늙크크 색상... (버건디, 카민 레드, 무슨 레드 등등 다 써봤지만 평가는 그냥 물에 젖은 단풍색이었음. )"
+      ]
+    },
+    {
+      "id": "c78",
+      "text": "실버가 진짜 이쁘다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "실버 진짜 이쁘다 투톤 없어지니깐"
+      ]
+    },
+    {
+      "id": "c79",
+      "text": "투톤이 없어진다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "실버 진짜 이쁘다 투톤 없어지니깐"
+      ]
+    },
+    {
+      "id": "c80",
+      "text": "18프로 색상은 아무리 봐도 17프로 오렌지를 못 따라올 것 같다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "근데 색상은 진짜 18프로라인 아무리 봐도 17프로 오렌지를 못 따라올 것 같음 진짜 이 오렌지는....하.. 그냥 다시는 이런 ᄆᄎ 개야르 색을 낼 수 있을까 하는 의문이 생기는 부분이랄까? ᄒᄒ"
+      ]
+    },
+    {
+      "id": "c81",
+      "text": "스피커가 개선됐는지 궁금하다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "혹시 스피커는 개선됐는지 궁금해요!"
+      ]
+    },
+    {
+      "id": "c82",
+      "text": "이심모델은 배터리가 더 좋을 것이다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "이심모델은 배터리 더 쩔겠네"
+      ]
+    },
+    {
+      "id": "c83",
+      "text": "듀오는 리셀 될수도 있을 것 같다",
+      "count": 1,
+      "stance": "neutral",
+      "sample_comments": [
+        "듀오는 리셀 될수도 있을거 같은데...구매는 하시지"
+      ]
+    },
+    {
+      "id": "c84",
+      "text": "329만원은 선을 넘었다",
+      "count": 1,
+      "stance": "negative",
+      "sample_comments": [
+        "ios 떄문에 애플만 쓰는데 애플 ui ux 이뻐 그래 내눈엔 너무 이뻐 근데 329만원은 선 넘었다 애플아..심했어"
+      ]
+    },
+    {
+      "id": "c85",
+      "text": "18 프로라인업이 단연 최고다",
+      "count": 1,
+      "stance": "positive",
+      "sample_comments": [
+        "단연 18 프로라인업이긴하져 ᄒᄒ"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "c3",
+      "to": "c73",
+      "type": "related"
+    },
+    {
+      "from": "c6",
+      "to": "c27",
+      "type": "related"
+    },
+    {
+      "from": "c8",
+      "to": "c33",
+      "type": "support"
+    },
+    {
+      "from": "c32",
+      "to": "c8",
+      "type": "attack"
+    },
+    {
+      "from": "c9",
+      "to": "c30",
+      "type": "related"
+    },
+    {
+      "from": "c10",
+      "to": "c21",
+      "type": "related"
+    },
+    {
+      "from": "c10",
+      "to": "c59",
+      "type": "related"
+    },
+    {
+      "from": "c11",
+      "to": "c61",
+      "type": "support"
+    },
+    {
+      "from": "c11",
+      "to": "c22",
+      "type": "support"
+    },
+    {
+      "from": "c11",
+      "to": "c55",
+      "type": "related"
+    },
+    {
+      "from": "c13",
+      "to": "c71",
+      "type": "related"
+    },
+    {
+      "from": "c13",
+      "to": "c17",
+      "type": "related"
+    },
+    {
+      "from": "c14",
+      "to": "c22",
+      "type": "related"
+    },
+    {
+      "from": "c14",
+      "to": "c61",
+      "type": "related"
+    },
+    {
+      "from": "c17",
+      "to": "c19",
+      "type": "related"
+    },
+    {
+      "from": "c19",
+      "to": "c59",
+      "type": "related"
+    },
+    {
+      "from": "c20",
+      "to": "c74",
+      "type": "related"
+    },
+    {
+      "from": "c21",
+      "to": "c59",
+      "type": "related"
+    },
+    {
+      "from": "c22",
+      "to": "c61",
+      "type": "related"
+    },
+    {
+      "from": "c26",
+      "to": "c33",
+      "type": "related"
+    },
+    {
+      "from": "c27",
+      "to": "c80",
+      "type": "related"
+    },
+    {
+      "from": "c47",
+      "to": "c28",
+      "type": "attack"
+    },
+    {
+      "from": "c8",
+      "to": "c28",
+      "type": "related"
+    },
+    {
+      "from": "c28",
+      "to": "c54",
+      "type": "related"
+    },
+    {
+      "from": "c29",
+      "to": "c33",
+      "type": "attack"
+    },
+    {
+      "from": "c29",
+      "to": "c32",
+      "type": "related"
+    },
+    {
+      "from": "c30",
+      "to": "c54",
+      "type": "support"
+    },
+    {
+      "from": "c33",
+      "to": "c32",
+      "type": "attack"
+    },
+    {
+      "from": "c32",
+      "to": "c70",
+      "type": "related"
+    },
+    {
+      "from": "c33",
+      "to": "c52",
+      "type": "related"
+    },
+    {
+      "from": "c33",
+      "to": "c35",
+      "type": "support"
+    },
+    {
+      "from": "c49",
+      "to": "c37",
+      "type": "attack"
+    },
+    {
+      "from": "c39",
+      "to": "c74",
+      "type": "support"
+    },
+    {
+      "from": "c40",
+      "to": "c39",
+      "type": "attack"
+    },
+    {
+      "from": "c43",
+      "to": "c44",
+      "type": "related"
+    },
+    {
+      "from": "c43",
+      "to": "c45",
+      "type": "related"
+    },
+    {
+      "from": "c44",
+      "to": "c45",
+      "type": "related"
+    },
+    {
+      "from": "c78",
+      "to": "c45",
+      "type": "attack"
+    },
+    {
+      "from": "c78",
+      "to": "c46",
+      "type": "attack"
+    },
+    {
+      "from": "c51",
+      "to": "c46",
+      "type": "support"
+    },
+    {
+      "from": "c8",
+      "to": "c47",
+      "type": "attack"
+    },
+    {
+      "from": "c49",
+      "to": "c50",
+      "type": "related"
+    },
+    {
+      "from": "c51",
+      "to": "c78",
+      "type": "attack"
+    },
+    {
+      "from": "c22",
+      "to": "c51",
+      "type": "attack"
+    },
+    {
+      "from": "c53",
+      "to": "c60",
+      "type": "related"
+    },
+    {
+      "from": "c47",
+      "to": "c54",
+      "type": "attack"
+    },
+    {
+      "from": "c54",
+      "to": "c60",
+      "type": "related"
+    },
+    {
+      "from": "c22",
+      "to": "c55",
+      "type": "support"
+    },
+    {
+      "from": "c56",
+      "to": "c59",
+      "type": "related"
+    },
+    {
+      "from": "c19",
+      "to": "c56",
+      "type": "related"
+    },
+    {
+      "from": "c27",
+      "to": "c58",
+      "type": "related"
+    },
+    {
+      "from": "c62",
+      "to": "c64",
+      "type": "attack"
+    },
+    {
+      "from": "c65",
+      "to": "c64",
+      "type": "attack"
+    },
+    {
+      "from": "c63",
+      "to": "c65",
+      "type": "support"
+    },
+    {
+      "from": "c24",
+      "to": "c65",
+      "type": "support"
+    },
+    {
+      "from": "c66",
+      "to": "c11",
+      "type": "support"
+    },
+    {
+      "from": "c85",
+      "to": "c70",
+      "type": "attack"
+    },
+    {
+      "from": "c21",
+      "to": "c70",
+      "type": "related"
+    },
+    {
+      "from": "c59",
+      "to": "c70",
+      "type": "related"
+    },
+    {
+      "from": "c58",
+      "to": "c72",
+      "type": "support"
+    },
+    {
+      "from": "c73",
+      "to": "c76",
+      "type": "related"
+    },
+    {
+      "from": "c74",
+      "to": "c11",
+      "type": "attack"
+    },
+    {
+      "from": "c77",
+      "to": "c61",
+      "type": "attack"
+    },
+    {
+      "from": "c77",
+      "to": "c22",
+      "type": "attack"
+    },
+    {
+      "from": "c77",
+      "to": "c11",
+      "type": "attack"
+    },
+    {
+      "from": "c59",
+      "to": "c83",
+      "type": "related"
+    },
+    {
+      "from": "c28",
+      "to": "c84",
+      "type": "support"
+    },
+    {
+      "from": "c84",
+      "to": "c47",
+      "type": "attack"
+    },
+    {
+      "from": "c85",
+      "to": "c27",
+      "type": "attack"
+    }
+  ],
+  "hidden_opinions": [
+    {
+      "text": "카드지갑 색은 도저히 안 된다",
+      "share": 0.0192,
+      "top_share": 0.0
+    },
+    {
+      "text": "일세대 항상스킵",
+      "share": 0.0192,
+      "top_share": 0.0
+    },
+    {
+      "text": "듀오를 살 것 같음",
+      "share": 0.0192,
+      "top_share": 0.0
+    },
+    {
+      "text": "버건디 색상을 가지고 싶습니다",
+      "share": 0.0192,
+      "top_share": 0.0
+    },
+    {
+      "text": "듀오를 갖고 싶다",
+      "share": 0.0192,
+      "top_share": 0.0
+    },
+    {
+      "text": "올 가을 버건디가 유행인 것 같습니다",
+      "share": 0.0192,
+      "top_share": 0.0
+    }
+  ]
+}
