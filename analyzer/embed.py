@@ -1,14 +1,14 @@
 from sentence_transformers import SentenceTransformer
 
 
-MODEL_NAME = "intfloat/multilingual-e5-small"
+MODEL_NAME = "gomyk/minilm-student-L3_uniform"
 
 _model = None
 
 
 def get_model():
     """
-    E5 모델이 실제로 필요한 시점에만 로딩한다.
+    임베딩 모델이 실제로 필요한 시점에만 로딩한다.
 
     이미 로딩된 모델이 있으면
     같은 모델 객체를 다시 사용한다.
@@ -18,7 +18,8 @@ def get_model():
 
     if _model is None:
         _model = SentenceTransformer(
-            MODEL_NAME
+            MODEL_NAME,
+            trust_remote_code=True
         )
 
     return _model
@@ -43,14 +44,13 @@ def embed_comments(comments):
             comment.get("text", "")
         )
 
-        texts.append(
-            f"passage: {text}"
-        )
+        texts.append(text)
 
     model = get_model()
 
     embeddings = model.encode(
         texts,
+        batch_size=16,
         convert_to_numpy=True,
         normalize_embeddings=True
     )
