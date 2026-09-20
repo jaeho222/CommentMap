@@ -95,7 +95,44 @@ def _friendly_http_error(error: HttpError) -> RuntimeError:
 
     return RuntimeError(f"YouTube API 오류가 발생했습니다: {error}")
 
+def get_video_title(video_id: str) -> str:
+    """
+    YouTube video_id를 받아 영상 제목을 반환합니다.
+    analyzer에서 topic으로 사용할 수 있습니다.
+    """
+    video_id = _validate_video_id(video_id)
 
+    youtube = build(
+        "youtube",
+        "v3",
+        developerKey=_get_api_key(),
+        cache_discovery=False,
+    )
+
+    try:
+        response = (
+            youtube.videos()
+            .list(
+                part="snippet",
+                id=video_id,
+                maxResults=1,
+            )
+            .execute()
+        )
+
+        items = response.get("items", [])
+
+        if not items:
+            raise RuntimeError(
+                "영상 정보를 찾을 수 없습니다. "
+                "삭제/비공개 영상이거나 video_id가 잘못되었을 수 있습니다."
+            )
+
+        return items[0]["snippet"]["title"]
+
+    except HttpError as error:
+        raise _friendly_http_error(error) from error
+    
 def fetch_comments(
     url: str,
     max_comments: int | None = None,
