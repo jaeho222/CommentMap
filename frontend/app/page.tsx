@@ -4,63 +4,40 @@ import { useState } from "react";
 import sampleData from "@/data/sample.opinionmap.json";
 import OpinionMapOverlay from "./components/OpinionMapOverlay";
 import type { OpinionMap } from "./types";
-import { analyzeUrl, AnalyzeError } from "./lib/api";
 
+// 실제 작동하는 3개 토픽 (sample JSON 의 key 와 매칭)
 const REAL_TOPICS = [
   {
-    key: "hormuz",
-    label: "호르무즈 해협 파병",
-    tag: "안보/외교",
-    image: "/tiles/hormuz_deployment.jpg",
-  },
-  {
-    key: "samsung_hynix",
-    label: "삼전·하이닉스 주식 현황",
-    tag: "경제",
-    image: "/tiles/samsung_hynix_stock.jpg",
-  },
-  {
-    key: "asian_games",
-    label: "아시안게임 운영 논란",
-    tag: "스포츠",
-    image: "/tiles/asian_games_operation.jpg",
-  },
-  {
-    key: "iphone18",
-    label: "아이폰 18 Pro",
-    tag: "테크",
-    image: "/tiles/iphone_18_pro.jpeg",
-  },
-  {
-    key: "yeosu_expo",
-    label: "여수 섬 박람회",
-    tag: "지역/사회",
-    image: "/tiles/yeosu_island_expo.jpg",
-  },
-  {
-    key: "missile",
-    label: "북한 동해상 미사일 발사",
-    tag: "안보",
-    image: "/tiles/north_korea_missile.jpg",
-  },
-  {
-    key: "press_conference",
-    label: "대통령 대국민 기자회견",
+    key: "politics",
+    label: "주 4일제,\n도입해야 하나",
     tag: "정치",
-    image: "/tiles/president_press_conference.jpg",
+    bg: "bg-gradient-to-br from-rose-100 to-orange-100",
+    text: "text-rose-900",
   },
   {
-    key: "real_estate",
-    label: "오세훈 부동산 평탄화 비판",
-    tag: "정치/부동산",
-    image: "/tiles/real_estate_flattening.jpg",
+    key: "tech",
+    label: "신제품 가격 인상,\n정당한가",
+    tag: "테크",
+    bg: "bg-gradient-to-br from-sky-100 to-indigo-100",
+    text: "text-indigo-900",
   },
   {
-    key: "newjeans",
-    label: "뉴진스 복귀",
-    tag: "연예",
-    image: "/tiles/newjeans_return.jpg",
+    key: "movie",
+    label: "화제작,\n명작 vs 과대평가",
+    tag: "영화",
+    bg: "bg-gradient-to-br from-emerald-100 to-teal-100",
+    text: "text-emerald-900",
   },
+] as const;
+
+// 그리드를 채우는 더미 타일 (아직 분석 안 된 토픽 — Coming soon)
+const DUMMY_TILES = [
+  { label: "AI 규제 논쟁", tag: "정치" },
+  { label: "전기차 보조금", tag: "정책" },
+  { label: "리메이크 열풍", tag: "영화" },
+  { label: "구독 서비스 피로", tag: "테크" },
+  { label: "재택근무 존폐", tag: "노동" },
+  { label: "스포일러 논란", tag: "영화" },
 ];
 
 const data = sampleData as Record<string, OpinionMap>;
@@ -68,10 +45,6 @@ const data = sampleData as Record<string, OpinionMap>;
 export default function Home() {
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [url, setUrl] = useState("");
-  const [topic, setTopic] = useState("");
-  const [liveResult, setLiveResult] = useState<OpinionMap | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
@@ -82,54 +55,55 @@ export default function Home() {
             <div className="flex items-center gap-2.5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo-mark.svg" alt="" width={36} height={36} />
-              <h1
-                className="text-2xl font-bold tracking-tight uppercase"
-                style={{
-                  fontFamily: "var(--font-archivo)",
-                  fontWeight: 700,
-                  transform: "scaleX(1.12)",
-                  transformOrigin: "left",
-                }}
-              >
-                CommentMap
-              </h1>
+              <h1 className="text-2xl font-bold tracking-tight uppercase" style={{
+              fontFamily: "var(--font-archivo)",
+              fontWeight: 700,
+              transform: "scaleX(1.12)",   // width 112%
+              transformOrigin: "left",
+              }}>
+              CommentMap</h1>
             </div>
             <p className="mt-1 text-sm text-neutral-500">
               댓글을 요약하지 않고, 논쟁의 구조를 지도로 보여줍니다.
             </p>
           </header>
 
-          <div className="grid grid-cols-3 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+            {/* 실제 작동 타일 */}
             {REAL_TOPICS.map((t) => (
               <button
                 key={t.key}
-                onClick={() => data[t.key] && setOpenKey(t.key)}
-                disabled={!data[t.key]}
-                className="group relative aspect-square overflow-hidden rounded-2xl text-left transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
+                onClick={() => setOpenKey(t.key)}
+                className={`group relative flex aspect-square flex-col justify-between rounded-2xl ${t.bg} ${t.text} p-5 text-left shadow-sm transition hover:scale-[1.02] hover:shadow-md`}
               >
-                {/* 배경 사진 */}
-                <img
-                  src={t.image}
-                  alt={t.label}
-                  className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                />
-                {/* 가독성용 어두운 그라데이션 오버레이 */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
-                {/* 텍스트 */}
-                <div className="relative z-10 flex h-full flex-col justify-between p-6">
-                  <span className="text-xs font-mono uppercase tracking-wide text-white/80">
-                    {t.tag}
-                  </span>
-                  <span className="text-xl font-semibold text-white">
-                    {t.label}
-                    {!data[t.key] && (
-                      <span className="ml-2 text-xs font-normal text-white/70">
-                        (준비중)
-                      </span>
-                    )}
-                  </span>
-                </div>
+                <span className="inline-block w-fit rounded-full bg-white/70 px-2.5 py-1 text-xs font-medium">
+                  {t.tag}
+                </span>
+                <span className="whitespace-pre-line text-xl font-bold leading-snug">
+                  {t.label}
+                </span>
+                <span className="text-xs font-medium opacity-70 group-hover:opacity-100">
+                  논쟁 지도 보기 →
+                </span>
               </button>
+            ))}
+
+            {/* 더미 타일 (Coming soon) */}
+            {DUMMY_TILES.map((t, i) => (
+              <div
+                key={i}
+                className="flex aspect-square cursor-not-allowed flex-col justify-between rounded-2xl border border-dashed border-neutral-200 bg-white p-5 text-left"
+              >
+                <span className="inline-block w-fit rounded-full bg-neutral-100 px-2.5 py-1 text-xs font-medium text-neutral-400">
+                  {t.tag}
+                </span>
+                <span className="text-xl font-bold leading-snug text-neutral-300">
+                  {t.label}
+                </span>
+                <span className="text-xs font-medium text-neutral-300">
+                  Coming soon
+                </span>
+              </div>
             ))}
           </div>
         </main>
@@ -150,38 +124,12 @@ export default function Home() {
                   placeholder="https://youtube.com/watch?v=..."
                   className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-400"
                 />
-                <input
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
-                  placeholder="주제 (선택, 예: 아이폰 18 Pro 가격 논란)"
-                  className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-400"
-                />
                 <button
-                  onClick={async () => {
-                    if (!url.trim()) return;
-                    setLoading(true);
-                    setError(null);
-                    try {
-                      const result = await analyzeUrl(url.trim(), {
-                        topic: topic.trim(),
-                      });
-                      setLiveResult(result);
-                    } catch (e) {
-                      setError(
-                        e instanceof AnalyzeError
-                          ? e.message
-                          : "알 수 없는 오류가 발생했습니다."
-                      );
-                    } finally {
-                      setLoading(false);
-                    }
-                  }}
-                  disabled={loading || !url.trim()}
-                  className="rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                  onClick={() => alert("분석 기능은 백엔드 연결 후 작동합니다 (지금은 아래 토픽 데모를 눌러보세요)")}
+                  className="rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700"
                 >
-                  {loading ? "분석 중... (1~2분 소요)" : "Analyze"}
+                  Analyze
                 </button>
-                {error && <p className="text-xs text-red-600">{error}</p>}
               </div>
             </div>
 
@@ -194,11 +142,10 @@ export default function Home() {
                 {REAL_TOPICS.map((t) => (
                   <li key={t.key}>
                     <button
-                      onClick={() => data[t.key] && setOpenKey(t.key)}
-                      disabled={!data[t.key]}
-                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
+                      onClick={() => setOpenKey(t.key)}
+                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition hover:bg-neutral-100"
                     >
-                      <span>{data[t.key]?.topic ?? t.label}</span>
+                      <span>{data[t.key].topic}</span>
                       <span className="text-neutral-400">→</span>
                     </button>
                   </li>
@@ -227,12 +174,12 @@ export default function Home() {
         </aside>
       </div>
 
-      {/* ─── 오버레이 ─── */}
+      {/* ─── 오버레이 (타일 클릭 시) ─── */}
       {openKey && (
-        <OpinionMapOverlay data={data[openKey]} onClose={() => setOpenKey(null)} />
-      )}
-      {liveResult && (
-        <OpinionMapOverlay data={liveResult} onClose={() => setLiveResult(null)} />
+        <OpinionMapOverlay
+          data={data[openKey]}
+          onClose={() => setOpenKey(null)}
+        />
       )}
     </div>
   );

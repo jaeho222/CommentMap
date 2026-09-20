@@ -3,3 +3,12 @@ python-dotenv
 emoji
 jsonschema[format]
 pytest
+
+anthropic
+numpy
+sentence-transformers
+scikit-learn
+
+fastapi
+uvicorn
+pydantic

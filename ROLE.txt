@@ -38,6 +38,15 @@ LLM으로 각 논점 추출: claim(주장) / stance(입장) / 대표댓글
 
 analyzer/ 안에 embed.py, cluster.py, extract.py, relate.py, __init__.py
 requirements.txt
+
+*변동 사항
+Embedding으로 댓글 및 claim 벡터화 → 비슷한 의견 군집화
+LLM으로 댓글에서 개별 claim(주장) 추출 → 같은 의미의 claim 병합
+각 논점의 stance(positive / negative / neutral) 및 대표댓글 구성
+
+analyzer/ 안에 preprocess.py, embed.py, claim_extractor.py, claim_matcher.py, claim_merger.py, claim_builder.py, stance_classifier.py, relation_builder.py, relation_matcher.py, hidden.py, claude_client.py, cache.py, __init__.py
+requirements.txt
+
 여기도 LLM API 키 절대 금지 — .env
 
 전재호 (C / frontend)

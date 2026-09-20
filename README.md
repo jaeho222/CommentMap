@@ -102,3 +102,54 @@ test_collector.py — Collector 테스트
 
 토픽 분류, 클러스터링, 주장/반론 분석은 analyzer/에서 처리합니다.
 
+Analyzer
+
+Collector에서 전달받은 댓글을 분석하여
+contracts/opinionmap.schema.json 형식의 OpinionMap을 생성합니다.
+
+분석 과정
+
+댓글 전처리
+→ Claude를 이용한 개별 claim 추출
+→ E5 Embedding을 이용한 유사 claim 후보 생성
+→ Claude를 이용한 동일 의견 판정 및 병합
+→ 각 claim의 stance(positive / negative / neutral) 분석
+→ claim 사이 support / attack / related 관계 분석
+→ 전체 댓글 분포와 인기댓글 분포를 비교한 hidden opinion 분석
+→ OpinionMap JSON 생성
+
+주요 파일
+
+analyzer/preprocess.py — 분석 전 댓글 전처리
+
+analyzer/embed.py — E5 Embedding
+
+analyzer/claim_extractor.py — 댓글에서 claim 추출
+
+analyzer/claim_matcher.py — 동일 의견 판정
+
+analyzer/claim_merger.py — 동일한 claim 병합
+
+analyzer/claim_builder.py — 최종 claim 구성 및 대표댓글 연결
+
+analyzer/stance_classifier.py — claim의 stance 분석
+
+analyzer/relation_builder.py — claim 사이 관계 생성
+
+analyzer/relation_matcher.py — support / attack / related 관계 판정
+
+analyzer/hidden.py — 전체 댓글과 인기댓글 분포를 비교하여 hidden opinion 탐색
+
+analyzer/claude_client.py — Claude API 연결
+
+analyzer/cache.py — API 분석 결과 캐시
+
+analyzer/__init__.py — 전체 analyze() 파이프라인
+
+실시간 분석 연결
+
+pipeline.py — URL 입력부터 Collector와 Analyzer를 연결하는 전체 파이프라인
+
+api.py — 프론트엔드에서 분석을 요청할 수 있는 API
+
+API 키는 .env에 저장하며 GitHub에 커밋하지 않습니다.
