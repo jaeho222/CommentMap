@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-6 py-8 lg:flex-row">
+      <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:flex-row">
         {/* ─── 왼쪽: 토픽 타일 그리드 ─── */}
         <main className="flex-1">
           <header className="mb-6">
@@ -93,8 +93,8 @@ export default function Home() {
                 CommentMap
               </h1>
             </div>
-            <p className="mt-1 text-sm text-black">
-              한눈에 보이는 생각의 지도
+            <p className="mt-1 text-sm text-neutral-500">
+              댓글을 요약하지 않고, 논쟁의 구조를 지도로 보여줍니다.
             </p>
           </header>
 
@@ -104,7 +104,7 @@ export default function Home() {
             </p>
           )}
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
             {topics.map((t) => (
               <button
                 key={t.key}
@@ -119,11 +119,11 @@ export default function Home() {
                   className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0" />
-                <div className="relative z-10 flex h-full flex-col justify-between p-6">
-                  <span className="text-xs font-mono uppercase tracking-wide text-white/80">
+                <div className="relative z-10 flex h-full flex-col justify-between p-3 sm:p-6">
+                  <span className="text-[10px] font-mono uppercase tracking-wide text-white/80 sm:text-xs">
                     {t.tag}
                   </span>
-                  <span className="text-xl font-semibold text-white">
+                  <span className="break-keep text-sm font-semibold leading-snug text-white sm:text-xl">
                     {t.label}
                     {loadingKey === t.key && (
                       <span className="ml-2 text-xs font-normal text-white/70">

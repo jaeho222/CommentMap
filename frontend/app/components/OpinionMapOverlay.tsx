@@ -82,8 +82,9 @@ function forceLayout(ids: string[], edges: { from: string; to: string }[]): Reco
 
   const validEdges = edges.filter((e) => pos[e.from] && pos[e.to]);
   const iterations = 220;
-  const repulsion = 15000;
-  const springLen = 170;
+  // 노드가 10% 커진 만큼 간격도 넓혀서 겹침 방지
+  const repulsion = 18000;
+  const springLen = 187;
   const springK = 0.02;
   const damping = 0.82;
 
@@ -141,7 +142,8 @@ function buildNodes(claims: Claim[], visibleIds: Set<string>, coreIds: Set<strin
   return shown.map((c) => {
     const p = positions[c.id];
     // 원형 대신 부드러운 사각형: 너비 고정, 높이는 내용에 맞춰 자동으로 늘어남
-    const width = 150 + Math.min(c.count * 4, 40);
+    // 기존 대비 10% 크게 (150+최대40 → 165+최대44)
+    const width = 165 + Math.min(c.count * 4.4, 44);
     const style = STANCE_STYLE[c.stance] ?? STANCE_STYLE.neutral;
     const isCore = coreIds.has(c.id);
     return {
@@ -150,18 +152,18 @@ function buildNodes(claims: Claim[], visibleIds: Set<string>, coreIds: Set<strin
       data: { label: `${c.text}\n(${c.count.toLocaleString()})` },
       style: {
         width,
-        minHeight: 64,
-        borderRadius: 14,
+        minHeight: 70,
+        borderRadius: 15,
         background: style.bg,
         border: `${isCore ? 3 : 2}px solid ${style.border}`,
-        fontSize: 12,
-        fontWeight: 600,
+        fontSize: 13,
+        fontWeight: 700, // 볼드
         lineHeight: 1.35,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center" as const,
-        padding: "10px 12px",
+        padding: "11px 13px",
         whiteSpace: "pre-line" as const,
         color: "#1f2937",
         cursor: "pointer",
@@ -283,10 +285,10 @@ export default function OpinionMapOverlay({
   const hiddenCount = data.claims.length - visibleIds.size;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="flex h-[85vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-0 sm:p-4">
+      <div className="flex h-[100dvh] w-full max-w-6xl flex-col overflow-hidden bg-white shadow-2xl sm:h-[85vh] sm:rounded-2xl">
         {/* 헤더 */}
-        <div className="flex items-center justify-between border-b border-neutral-100 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-neutral-100 px-4 py-3 sm:px-6 sm:py-4">
           <div>
             <h2 className="text-lg font-bold">{data.topic}</h2>
             {data.meta && (
@@ -305,9 +307,9 @@ export default function OpinionMapOverlay({
         </div>
 
         {/* 본문: 그래프 + 우측 상세 */}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden md:flex-row">
           {/* 그래프 */}
-          <div className="relative flex-1">
+          <div className="relative h-[55%] shrink-0 md:h-auto md:flex-1 md:shrink">
             <ReactFlow
               key={visibleIds.size /* 노드 집합 바뀌면 fitView 다시 */}
               nodes={nodes}
@@ -321,7 +323,7 @@ export default function OpinionMapOverlay({
             </ReactFlow>
 
             {/* 범례 */}
-            <div className="absolute left-4 top-4 flex flex-col gap-1 rounded-lg bg-white/90 px-3 py-2 text-xs shadow">
+            <div className="absolute left-2 top-2 z-10 flex flex-row gap-3 rounded-lg bg-white/90 px-2 py-1.5 text-xs shadow md:left-4 md:top-4 md:flex-col md:gap-1 md:px-3 md:py-2">
               <span className="flex items-center gap-2">
                 <span className="h-0.5 w-4 bg-green-600" /> 지지
               </span>
@@ -334,8 +336,13 @@ export default function OpinionMapOverlay({
             </div>
 
             {/* 표시 개수 + 초기화 */}
-            <div className="absolute right-4 top-4 flex items-center gap-2 rounded-lg bg-white/90 px-3 py-2 text-xs shadow">
-              <span className="text-neutral-500">
+            <div className="absolute right-2 top-2 z-10 flex items-center gap-2 rounded-lg bg-white/90 px-2 py-1.5 text-xs shadow md:right-4 md:top-4 md:px-3 md:py-2">
+              {/* 모바일: 짧게 */}
+              <span className="text-neutral-500 md:hidden">
+                {visibleIds.size}/{data.claims.length}개 표시
+              </span>
+              {/* 데스크톱: 자세히 */}
+              <span className="hidden text-neutral-500 md:inline">
                 핵심 주장 {visibleIds.size}개 표시 중
                 {hiddenCount > 0 && ` · 나머지 ${hiddenCount}개는 클릭해서 펼치기`}
               </span>
@@ -351,7 +358,7 @@ export default function OpinionMapOverlay({
           </div>
 
           {/* 우측 상세 패널 */}
-          <div className="w-80 shrink-0 overflow-y-auto border-l border-neutral-100 p-5">
+          <div className="min-h-0 flex-1 overflow-y-auto border-t border-neutral-100 p-4 md:w-80 md:flex-none md:border-l md:border-t-0 md:p-5">
             {selected ? (
               <div>
                 <button
