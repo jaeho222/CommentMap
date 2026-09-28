@@ -1,6 +1,4 @@
 
-원티드 챔피언쉽
-
 Collector
 
 YouTube URL을 입력하면 댓글을 수집·전처리하여
