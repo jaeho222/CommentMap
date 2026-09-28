@@ -1,4 +1,4 @@
-# 2026-wanted
+
 원티드 챔피언쉽
 
 Collector
